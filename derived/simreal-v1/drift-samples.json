@@ -1,0 +1,237 @@
+{
+ "source": "provisional-plant",
+ "provisional": true,
+ "basis": {
+  "drift": "plant body lateral y after the 1 m straight; synthetic, not tape",
+  "spin": "encoder wheel-differential yaw minus commanded 360 deg; synthetic, not tape"
+ },
+ "parameters": {
+  "masses_kg": [
+   2,
+   4,
+   6
+  ],
+  "frictions": [
+   0.2,
+   0.25,
+   0.3
+  ],
+  "source_v": 11.1,
+  "support_configurations_modeled": false
+ },
+ "drift_mm": [
+  -4.1562303698611494e-16,
+  -5.860887723144767e-16,
+  -5.860887723144767e-16,
+  -2.1718541983285797e-15,
+  -2.1718541983285797e-15,
+  -2.1718541983285797e-15,
+  -3.4646842046311453e-16,
+  -3.4646842046311453e-16,
+  -3.4646842046311453e-16
+ ],
+ "spin_error_deg": [
+  0.37999999999999545,
+  -0.37999999999999545,
+  0.0,
+  0.0,
+  0.0,
+  0.0,
+  1.1499999999999773,
+  -1.1499999999999773,
+  1.1499999999999773,
+  -1.1499999999999773,
+  1.1499999999999773,
+  -1.1499999999999773,
+  2.2900000000000205,
+  -2.2900000000000205,
+  2.2900000000000205,
+  -2.2900000000000205,
+  2.2900000000000205,
+  -2.2900000000000205
+ ],
+ "straight_samples": [
+  {
+   "mass_kg": 2.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "drift_mm": -0.0
+  }
+ ],
+ "spin_samples": [
+  {
+   "mass_kg": 2.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 0.38
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -0.38
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 0.0
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": 0.0
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 0.0
+  },
+  {
+   "mass_kg": 2.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": 0.0
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 1.15
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -1.15
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 1.15
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -1.15
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 1.15
+  },
+  {
+   "mass_kg": 4.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -1.15
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 2.29
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.2,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -2.29
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 2.29
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.25,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -2.29
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "direction": "left",
+   "spin_error_deg": 2.29
+  },
+  {
+   "mass_kg": 6.0,
+   "friction": 0.3,
+   "source_v": 11.1,
+   "direction": "right",
+   "spin_error_deg": -2.29
+  }
+ ]
+}

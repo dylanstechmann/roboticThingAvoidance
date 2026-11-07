@@ -1,0 +1,1230 @@
+{
+ "version": "0.1.0",
+ "date": "2026-11-07",
+ "status": "agent-run synthetic study; blocker positions, yaw and vehicle size are assumptions",
+ "world": "world-ccw-line-sq-adv-align",
+ "seeds": [
+  100,
+  101,
+  102,
+  103,
+  104,
+  105,
+  106,
+  107,
+  108,
+  109,
+  110,
+  111,
+  112,
+  113,
+  114,
+  115,
+  116,
+  117,
+  118,
+  119
+ ],
+ "cells": [
+  {
+   "scenario": "low_mid",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.8
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.8
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.77
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.79
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.76
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.75
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.77
+  },
+  {
+   "scenario": "low_mid",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 31.79
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.68
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.69
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.68
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.69
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.68
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.69
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.68
+  },
+  {
+   "scenario": "low_corner",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 30.69
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 39.8
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 39.83
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 40.12
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 40.16
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 40.07
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 40.09
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 40.13
+  },
+  {
+   "scenario": "high_mid",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 40.16
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.69
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.71
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.92
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.95
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.98
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 39.01
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.93
+  },
+  {
+   "scenario": "high_corner",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 0,
+   "passed_blocker": 0,
+   "recovered": 0,
+   "recovered_contact": 0,
+   "blocked": 20,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.0,
+    0.1611
+   ],
+   "mean_time_s": 38.96
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 82.09
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 82.09
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.05
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.06
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 75.75
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 75.77
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.11
+  },
+  {
+   "scenario": "low_mid_band",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.08
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 82.09
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 82.08
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 85.4
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 85.36
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 18,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 78.84
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 18,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 81.91
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 85.38
+  },
+  {
+   "scenario": "low_corner_band",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 85.38
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 81.9
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 81.94
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.55
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.55
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 77.07
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 77.06
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.6
+  },
+  {
+   "scenario": "high_mid_band",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 17,
+   "passed_blocker": 17,
+   "recovered": 0,
+   "recovered_contact": 17,
+   "blocked": 3,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.6396,
+    0.9476
+   ],
+   "mean_time_s": 76.64
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 81.9
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "lateral_shift",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 81.89
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 85.0
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "replan_lanes",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 84.99
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "stall_stop",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 18,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 79.6
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "stall_stop",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 18,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 79.65
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "auto",
+   "pose_mode": "true_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 84.99
+  },
+  {
+   "scenario": "high_corner_band",
+   "behavior": "auto",
+   "pose_mode": "ekf_pose",
+   "runs": 20,
+   "completed": 20,
+   "passed_blocker": 20,
+   "recovered": 0,
+   "recovered_contact": 20,
+   "blocked": 0,
+   "stopped": 0,
+   "incomplete": 0,
+   "passed_wilson95": [
+    0.8389,
+    1.0
+   ],
+   "mean_time_s": 85.01
+  }
+ ],
+ "association": {
+  "units": 320,
+  "independent_clusters": 40,
+  "scenario_rows_per_cluster": 8,
+  "permutation_shuffles": 10000,
+  "permutation_seed": 7,
+  "method": "midrank Spearman; two-sided permutation of whole pose/seed baseline clusters within pose",
+  "router_pass_definition": "unblocked v10 route has planned_contact_vehicles == 0 (not baseline completion)",
+  "recovery_success_vs_router_pass_spearman": null,
+  "recovery_success_vs_router_pass_p": null,
+  "recovery_success_vs_planned_contacts_spearman": 0.0474,
+  "recovery_success_vs_planned_contacts_p": 0.007999,
+  "recovery_success_among_router_pass_rows": null,
+  "recovery_success_among_router_fail_rows": 0.4625,
+  "note": "40 independent pose/seed baseline clusters repeat across eight scenarios; pooled row rates are descriptive, not 320 independent observations. Null statistics indicate no rank variance and are reported rather than treated as evidence."
+ },
+ "baseline": {
+  "pose_modes": {
+   "true_pose": {
+    "runs": 20,
+    "completed": 20,
+    "completion_wilson95": [
+     0.8389,
+     1.0
+    ],
+    "router_passes": 0,
+    "router_pass_wilson95": [
+     0.0,
+     0.1611
+    ],
+    "mean_planned_contacts": 2.1
+   },
+   "ekf_pose": {
+    "runs": 20,
+    "completed": 20,
+    "completion_wilson95": [
+     0.8389,
+     1.0
+    ],
+    "router_passes": 0,
+    "router_pass_wilson95": [
+     0.0,
+     0.1611
+    ],
+    "mean_planned_contacts": 2.1
+   }
+  }
+ }
+}

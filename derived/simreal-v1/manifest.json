@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-07",
+  "status": "agent-run E03-gate transfer screening; not physical full-mission qualification",
+  "input_hashes": {
+    "tools/evaluate-simreal-v1.py": "4f7d248591a40c7c5868b19ac72a4e1cddc80c8386d03c8d47d913657d8deef1",
+    "software/stockcar/simreal.py": "9197a813b60042323fd939ac3c5b4be53329dc495765025dd29db8abada60bc7",
+    "software/stockcar/study_stats.py": "c37041a84a0dded04e166f9b771a253f7851f9208ca12782a550d8663d65a7bb",
+    "software/stockcar/field.py": "67516673e3eee0ee5decb2186eacffce21723abc0bbf4f43db0a9b8e08029b68",
+    "derived/organizer-cad-v10/field-v10.json": "d3d7de9e9f7d257d6f4f095cb06836a6bb484861aeffca45cb96990dba4afdca",
+    "drivetrain-mule-v4.json": "342f2bb93eb7b9b47e333487a1fda019a819d7458f1e9385982ebf56161a2dec",
+    "firmware/pico2/config.py": "c4c853ae2335dde1863b5250f9aba3f699ece31ac60e6ed41a99dfa18aac1e38",
+    "firmware/pico2/floor_e03.py": "b0e4f920c5ce0abddc1926262af288c53829b8d5980dfbf5989ed4169092b87f",
+    "firmware/pico2/runner.py": "eb612624a596481b9bb3884408df98ccd50ad5412ed7685dbd987e0621e24393",
+    "firmware/pico2/drive.py": "5db7d9652dadc8fed3c83767fb90ef4a813ca29dc21903f6948bf392330bfd7b",
+    "firmware/pico2/motor.py": "688e956aa0615aff0868730270f076434bb320560068dc5f7582c8fc7f2816c3",
+    "firmware/pico2/safety.py": "fb2aea7a60961f11e6f755eef84b2d08f1c19bed688dc5755ff03f0be4ecad70",
+    "firmware/pico2/telemetry.py": "4c2fb6afd7ae430d68495144e866205ea62f19c82aaa00fd8937a44c050ceb16",
+    "firmware/host_tests/fakes.py": "c5f963eaf2402b90f8bd731f16af3cd0924b52534a49e92fc473e894c3c47ab3",
+    "firmware/host_tests/plant_hal.py": "6bce20def53f8e364afa1befde791571cdc370db87e1f6bd5ed7d3972bb6dbd0",
+    "software/stockcar/dynamics.py": "b4b4dcc583e4549923eabb013774735b9a8e6be2b05100b9987754a69f17a793",
+    "software/stockcar/envelope.py": "8da62a488f226326a23606f09faad5ef8f18e51a60f904ef37d35a29c70acf81",
+    "software/stockcar/lapmodel.py": "943296d5f461cfef67d29934ce4129d06ad5c59762b1ebdfd21b18c098ff14a6",
+    "software/stockcar/tests/fixtures/dynamics-golden-v10.json": "290b17bb523d5c4b36c3bf911b156690245fb41a1c1be2278733c74834904973"
+  },
+  "output_hashes": {
+    "report.json": "515f241c48211fa94d8bf302be75fe5c11784b2041abf304c0d94304fae4c908",
+    "summary.md": "caf6da6c32156ef66cefa9b578741f914b5cfb8a917d231b64dc00af3ceb2676",
+    "drift-samples.json": "c5551890aeab1c928a0305a71ddf93e1cd0e7d4385c54590462130736d40b87b"
+  },
+  "source_commits": [
+    {
+      "world": "world-ccw-line-sq-adv-align",
+      "source_branch": "world-ccw-line-sq-adv-align",
+      "source_commit": "6cf5a2228762f7a9ca652da674af877e57c21df0",
+      "source_report_sha256": "bb67f242be70b8418e370da4976ad0ee336e1bd62969d982a1e7a37a15e39207",
+      "source_manifest_sha256": "443df801d2647a892b8ab374dae724ff7717f94a7f75cefea4f8701bc101959a"
+    },
+    {
+      "world": "world-ccw-gate-sq-adv-align",
+      "source_branch": "world-ccw-gate-sq-adv-align",
+      "source_commit": "2728d8395cb996dd53edddbb4ef9ae1e1baefd3b",
+      "source_report_sha256": "ad1aef20c0ca73856c7cc58914bbdb0484376389242197bf79eee707ff76cfd3",
+      "source_manifest_sha256": "5f32e5039843944ca50e5baac6795b0dd1212857f472f951a1753bda9bdefeee"
+    },
+    {
+      "world": "world-ccw-line-rd-adv-align",
+      "source_branch": "world-ccw-line-rd-adv-align",
+      "source_commit": "f58abf4b65ead56e397333e5f2aeb2f8e769812b",
+      "source_report_sha256": "c714462835fa90444c0e091dc56e5e491697b92d178d97a1da6ab3e3a88da3ec",
+      "source_manifest_sha256": "4cd4db22de5d67789fc115d531c99f21991796488dd56fd5cb41b38c693b0780"
+    },
+    {
+      "world": "world-ccw-gate-rd-adv-align",
+      "source_branch": "world-ccw-gate-rd-adv-align",
+      "source_commit": "5dfa9f698226a9a22999071d6a8827fa9d8cd438",
+      "source_report_sha256": "1409f4b17ab795a63fe9ecc93efbf027b26b81b0e6b4fde0e9c22c6854cfecb2",
+      "source_manifest_sha256": "cae62a6c9a385401bee2a55f58e21218016be299a3361d7bb6ec3a9d843e7753"
+    },
+    {
+      "world": "world-ccw-line-sq-adv-yaw",
+      "source_branch": "world-ccw-line-sq-adv-yaw",
+      "source_commit": "efa0e754364c7808007aedd703f06a5e01a2c18c",
+      "source_report_sha256": "c71954531c2c5a08c20973800ca22f98bfc0548dcc6f2503f6ee5588b47892d6",
+      "source_manifest_sha256": "a9bd216a3bcba416045b022a9e9ffa8ba766de91b1332784594359cd532dfcbf"
+    },
+    {
+      "world": "world-cw-line-sq-adv-align",
+      "source_branch": "world-cw-line-sq-adv-align",
+      "source_commit": "95a6135d8ed6f69a2f2063dbe6714cefe72fd2ee",
+      "source_report_sha256": "c1f7170317625b171d970bf24840868af52868d1bb875b4692e4a728a0070b27",
+      "source_manifest_sha256": "021876947de2b2586fb5c0130d6663d71499371cb1d044d5df5a18028546c047"
+    }
+  ]
+}

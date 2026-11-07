@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-07",
+  "status": "agent-run synthetic static-human benchmark; truth positions, not perception or physical safety",
+  "input_hashes": {
+    "tools/evaluate-humans-v1.py": "05920a12759b36db746767b01ff6c2fd4d2f5ccb2dd362b407c69c35a5e5d9d2",
+    "software/stockcar/humans.py": "f0880fbd9afbaeb069359267cac7e30ed99216957f7c7d3a3baa1512f6953238",
+    "software/stockcar/study_stats.py": "c37041a84a0dded04e166f9b771a253f7851f9208ca12782a550d8663d65a7bb",
+    "software/stockcar/mission_avoid.py": "b0fc36942ee0fc136001d46007a2272ad9d09b37f2767102ace50cd95c11c6b7",
+    "software/stockcar/mission_sensed.py": "fa619a6532e907e84bd52285bde561d1962339be0b3e75e0be0deada0a3e93fd",
+    "software/stockcar/mission.py": "346fb5c977fddaaad7d790afcb466beacb3f2beeebe01803befb9da004032678",
+    "software/stockcar/supervisor.py": "15bf5e68a33428ac4db1a94e54b2c5fc44ff0280ccfc1fb6b4a54b37c3b701ec",
+    "software/stockcar/lapmodel.py": "943296d5f461cfef67d29934ce4129d06ad5c59762b1ebdfd21b18c098ff14a6",
+    "software/stockcar/passage.py": "adda10e8ca96830a8df0438d9e07c56ba976d54c01e9bae3ad8bb49332ad9e3d",
+    "software/stockcar/field.py": "67516673e3eee0ee5decb2186eacffce21723abc0bbf4f43db0a9b8e08029b68",
+    "software/stockcar/obstacles.py": "9caa806ed4a555df08721ca3cb9e74c7aeb65f9dbdadbc265fd20a74cf8776b1",
+    "software/stockcar/geometry.py": "424a5f211dff9afa22c4f366ba13b122ecd5960b803ac97b3538c2bf1ac35491",
+    "software/stockcar/sensors_camera.py": "c7882bb539add156e19f0f209b7f9c026517e6d802a7baf764e8909ee7a0bf75",
+    "software/stockcar/sensors.py": "14146c15d7102e9f96bd056cff3370810c2f58f6f245b84e819f5e696b340fac",
+    "software/stockcar/estimator.py": "ae66e769229862e9f5e052a5740b9c2d95fdf5cb06f1f90fe0b1592905b8951f",
+    "software/stockcar/lane_profile.py": "b9bbb24d79a8d5b9fab685953fc7a940c583c7c55934c4a2d789ceaa432fe91a",
+    "software/stockcar/sensors_vehicle.py": "3e643e87e26a834fceb70f0f75d3841a73e7aba97d7047471c8d391f6d1d5f16",
+    "derived/organizer-cad-v10/field-v10.json": "d3d7de9e9f7d257d6f4f095cb06836a6bb484861aeffca45cb96990dba4afdca"
+  },
+  "output_hashes": {
+    "report.json": "753b422184579aa96cabb9909fd7f399c4bc1774999f9e54bbdfd7769a25ebba",
+    "summary.md": "6ce08e1cc70cd967cfd1b86bca8382a085eecffe4d6e7f3b089c10933ba77f70"
+  }
+}

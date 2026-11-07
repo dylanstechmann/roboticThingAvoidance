@@ -93,3 +93,32 @@ Run `git log --oneline --decorate`, `git branch -avv`, `git ls-remote --heads or
 - Sealed contract untouched: `tools/mule-measurements-v4.js`/`-v10.js`, the `derived/drivetrain-mule-v10/**` package (tool-generated, hash-verified), the templates, and the telemetry schema (trials log in the existing `DRIVE` mode).
 - The estimator/mission path stays deliberately unwired (`mission_driver.py`: no pose source until the sensors are chosen, G2 Dec 13). E03 needs no gyro, reflectance or ToF — drift and spin error are physical (tape) measurements.
 - Host tests: `firmware/host_tests/test_floor_e03.py` (7 tests, plant-backed; note the plant couples yaw to forward velocity, so in-place spin ground truth is the wheel differential, not body yaw). Firmware suite 79 tests PASS; MicroPython lint clean. Nothing run on hardware; flashing and floor trials remain owner actions under the approved setups, after E02A/E02.
+
+## Computer-only study pack (2026-11-07)
+
+### Recovery and DR registry
+
+- New unpinned modules `recovery.py`, `recovery_sim.py`, `study_stats.py`, evaluator `tools/evaluate-recovery-v1.py`, and seals `derived/recovery-v1/` + `derived/dr-registry-v1/`. The matrix is eight scenarios × four behaviors (`stall_stop`, `lateral_shift`, `replan_lanes`, `auto`) × two poses × 20 seeds = 64 cells and 1,280 DR entries.
+- The former high-side false pass was fixed: passage now requires a directional crossing on the LAP route inside the blocked corridor with no blocker contact. All 640 runs in the four spanning scenarios are `blocked`; high-side start/pit positions no longer count as passage.
+- `auto` results are identical in true/EKF pose: mid-band low/high pass 17/20 (three blocker contacts each), corner-band low/high pass 20/20. No run is fully contact-free because ordinary quadrant-vehicle contacts are reported separately from blocker recovery.
+- Router pass is correctly defined as zero planned contact vehicles on the unblocked v10 route, not baseline completion. All 40 baselines complete, but none has a router pass, so recovery-success/router-pass Spearman and p-value are null. Against planned contact count, midrank Spearman is 0.0474 with a 10,000-shuffle whole-cluster permutation p=0.007999. There are 40 independent pose/seed clusters repeated over eight scenarios, not 320 independent baseline observations; the small coefficient is not a practical router/recovery link.
+- `backtrack` and `pit_bypass` remain inexpressible in the forward-only oval/pit route model and were not fabricated. Sensed blocker detection is a follow-up.
+- `tools/dr-registry.js` provides host-only `query`, `add-physical`, and `stats`. Sim entries stay hash-sealed; physical observations are owner-appended and are preserved on study regeneration. Example: `node tools/dr-registry.js query --side low --x 60 --kind guide-plush`. The robot has no registry read/write path.
+
+### Sim-to-real expected-pass screening
+
+- `derived/simreal-v1/` has 18 records (six worlds × classical/learned/random), 10,000 deterministic draws per record, and `drift-samples.json` provenance. Only the primary world seal is in this working tree, so the other five are read and fully hash-validated through immutable Git objects at their world-branch commits; no checkout/merge/branch edit occurs.
+- Current input is `provisional-plant`: nine straight and 18 spin samples from the 2/4/6 kg × friction 0.20/0.25/0.30 host grid. Lateral drift is essentially zero and maximum absolute encoder spin error is 2.29 degrees. All 18 `fragile` flags are false under this input, which is **not** evidence of physical robustness.
+- The expected-pass value is an E03-gate transfer index (Jeffreys sim posterior × empirical 25 mm drift/5 degree spin survival), not a full-mission physical-pass probability. After owner E03 trials, rerun with `uv run --no-project --python 3.12 python -B -I tools/evaluate-simreal-v1.py --e03 measurements/.../E03-trials.csv`; completed measured rows must carry real provenance.
+
+### Isolated-human planner safety
+
+- `derived/humans-v1/` has ten cells × 20 seeds = 200 runs with independent static 10 in discs and immediate first-contact abort. The 18 in/12 in stand-ins could not fit ten non-overlapping placements for every seed, so the 10 in stand-in is an explicit deviation, not an adult-body measurement.
+- N=1 completes 8/20 with 12 contacts/aborts. Every seed has a contact by N=2, so N=2..10 all complete 0/20. Run-level clearance percentiles and Wilson intervals are in the report. Placement-set SHA-256 IDs prove 20 distinct seed sets and nested reuse only across each seed's N slices.
+- N also adds zones in start/pit-lane/lane-change/turn order, so trends are confounded and no causal/monotonic claim is made. Straight lane-change humans use oracle truth; start, pit and turns are not replanned. This is not human perception or a physical safety qualification.
+
+### Folder audit, validation and handoff
+
+- `docs/folder-breakdown.md` accounts for all 149 files under `tools/` and `tools/bench/`; 25 have explicit GAP rows rather than invented coverage. `tests/folder-breakdown.test.js` checks exact inventory coverage and real goal-test paths.
+- Full `node tools/check-all.js`: **47/47 PASS** — 69 Node files/332 passes, 43 verifiers, 245 software tests, 79 firmware host tests, and the working-tree immutability check. Focused recovery regression is 11 tests; shared statistics, simreal and humans add 16 more.
+- Remaining computer-only follow-ups: the 25 documented test gaps, JSON task-object validator, sensed blocker detection, human perception after G2, firmware DR lookup after G2, and nonlinear policy work. Owner physical work remains E02A/E02/E03, field/vehicle measurement and the G2 decisions; this pack did not perform or simulate-owner-approve any of them.

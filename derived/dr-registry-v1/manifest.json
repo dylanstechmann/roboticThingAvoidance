@@ -1,0 +1,7 @@
+{
+  "date": "2026-11-07",
+  "access": "computer-only",
+  "note": "Sim entries are written only by tools/evaluate-recovery-v1.py; physical observations are appended by the owner through tools/dr-registry.js add-physical. The robot has no read or write path to this registry.",
+  "registry_sha256": "3d7300c73ed195b3c26c51e2ecb9fb97bef641b5b040ad5f9a412c924d6a47a4",
+  "sim_entry_count": 1280
+}
