@@ -20,8 +20,8 @@
     "kind": "vision",
     "title": "Review the 7.8 mm motor-body gap failure and propose measurement checks",
     "input_files": [
-      "docs/mechanical-readiness-v13.md",
-      "derived/cad-v13/fit-results.json"
+      "docs/motor-dimensions-published.md",
+      "firmware/ORDER-B-BENCH-KIT.md"
     ],
     "prompt_file": "prompts/cad-fit-review.md",
     "preferred_providers": [
@@ -102,28 +102,6 @@
     "owner_review": false
   },
   {
-    "id": "vendor-cad-research",
-    "kind": "search",
-    "title": "Find vendor references and CAD files for the drive motors",
-    "input_files": [
-      "docs/mechanical-readiness-v13.md",
-      "derived/cad-v13/fit-results.json"
-    ],
-    "prompt_file": "prompts/vendor-cad-research.md",
-    "preferred_providers": [
-      "exa-search",
-      "brave-search",
-      "firecrawl-search"
-    ],
-    "output_name": "vendor-cad-research.md",
-    "query": "37 mm DC gearmotor 6V dimensions CAD step file vendor",
-    "context_policy": {
-      "mode": "auto",
-      "budget_tokens": 12000
-    },
-    "owner_review": false
-  },
-  {
     "id": "literature-search",
     "kind": "literature",
     "title": "Find citable references for small-robot obstacle avoidance and odometry",
@@ -158,7 +136,7 @@
       "firecrawl-scrape"
     ],
     "output_name": "vendor-page-read.md",
-    "query": "https://www.pololu.com/product/1067",
+    "query": "https://www.pololu.com/product/4754",
     "context_policy": {
       "mode": "off"
     },

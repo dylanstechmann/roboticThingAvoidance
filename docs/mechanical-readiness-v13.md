@@ -1,5 +1,9 @@
 # V13 mechanical readiness — source-evidenced digital study
 
+## Historical status (2026-11-07)
+
+This study's vendor-CAD variants and fit gates derive from archived vendor geometry. Under the owner's standing constraint (recorded in `AGENTS.md`: no vendor CAD; open-source software only), everything in this document is **historical reference only, not geometry authority**. New geometry comes from owner measurement of received parts and open-source models; see `docs/motor-dimensions-published.md` for the page-published motor baseline and `derived/cad-v13/README.md` for the artifact directory status.
+
 **Status: not mechanically ready for fabrication or competition.** This is an agent-run CAD and simulation study for a personal hobby/learning project. No parts have been purchased or measured, no mechanism or electronics actuator has been selected, and no physical robot test or owner-reviewed approval is claimed.
 
 Open the self-contained `share/Showcase-v13.html` directly in a browser. It works offline. Build and validation evidence is under `derived/showcase-v13/`; generated CAD is under `derived/cad-v13/`.

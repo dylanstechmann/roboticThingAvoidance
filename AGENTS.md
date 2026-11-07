@@ -29,3 +29,10 @@ After producing a new one-file showcase: add it to `share/`, point the README
 front-page “latest one-file showcase” line and the first “Start here” row at it
 (both live at the top of the README), run `secrets-guard --staged`, commit, and
 push to `main`. Never overwrite earlier pinned showcase HTML files.
+
+## Owner-set constraints (do not violate)
+
+1. **No vendor CAD.** Do not search for, download, import, or build on vendor/manufacturer CAD files (STEP, SolidWorks, Fusion, etc.) for any new work. Archived vendor STEP/PDF files under `sources/` are committed history, kept only so the sealed v13 study stays verifiable; treat them as historical reference, never as geometry authority.
+2. **Open-source software only.** Robot geometry and design work uses this repository's open-source toolchain (CadQuery/OpenCASCADE and the existing conversion/rendering tools). No proprietary CAD applications.
+3. **Geometry authority is owner measurement.** Dimensions come from the owner's physical measurements of received parts, or from open-source models authored here. Manufacturer product pages, datasheets, and drawings may be read as evidence, but they are published claims, not received-part measurements.
+4. **AI harness tasks must not aim any provider at vendor CAD acquisition.** Reading manufacturer pages for published specs (as `vendor-page-read` does) is allowed; hunting CAD models is not.

@@ -74,7 +74,15 @@ Run `git log --oneline --decorate`, `git branch -avv`, `git ls-remote --heads or
 - Providers carry `family`, `cost_rank` (1 cheapest to 5), and `max_context_tokens`. Automatic selection prefers the cheapest live provider whose family matches the task kind and never auto-selects `planned` transports.
 - Prompts over the context budget are compacted into a digest first (default 12,000 tokens, well below 200k-token windows): live mode uses the cheapest credentialed summarize provider, dry-run uses a deterministic local digest. Digests land in `derived/ai-orchestration/context/`.
 - New live routes mirror the vendored `.agent-tools/mcp/*` endpoint conventions: web search (Exa, Brave, Brave Answers, Jina, Firecrawl), page read (Jina Reader, Firecrawl scrape), and scholarly search (OpenAlex, Semantic Scholar, CORE, PubMed, ORCID).
-- New advisory tasks exercise each family: `rules-update-scan`, `vendor-cad-research`, `literature-search`, and `vendor-page-read` (reads the 37D mm gearmotor vendor page).
+- New advisory tasks exercise each family: `rules-update-scan`, `literature-search`, and `vendor-page-read` (reads the BOM 37D mm gearmotor product page, Pololu #4754). The `vendor-cad-research` task added in that commit was removed the same day for violating the no-vendor-CAD constraint; `cad-motor-gap-review` was re-pointed to manufacturer-page and bench evidence.
 - Owner review workflow: `node tools/ai-orchestrate.js --review --task <id> --status accepted|rejected [--notes ...]` writes `<task-id>.review.json` and mirrors the decision into the run record. Reviewing is an owner action; the agent does not review its own outputs.
 - Fixes along the way: baseten provider `auth_env` typo (`BASTEN_API_KEY` → `BASETEN_API_KEY`), `--help` now reachable, and the jina/omtx credential patterns tightened so environment-variable names do not trip the guard.
 - Tests: `tests/ai-orchestration-provider.test.js` (19 offline tests with stubbed fetch) alongside the original 11.
+
+## Owner constraint — no vendor CAD (2026-11-07)
+
+- The owner confirmed a standing decision: this project uses **no vendor CAD** and **only open-source software**. The rule had been documented only in archived plan-history files (`docs/plans/implementation-plan-v13-history.md`, `docs/plans/implementation-plan-v11-history.md`) and was missed during the harness expansion.
+- The rule is now written into `AGENTS.md` ("Owner-set constraints"), `CLAUDE.md`, this file, `docs/ai-orchestration.md`, and `PROJECT-STATUS.md`, and a policy test (`no task targets vendor CAD research`) fails the suite if vendor-CAD research is reintroduced.
+- The `vendor-cad-research` task, prompt, and dry-run evidence are deleted; `vendor-page-read` now targets the correct BOM motor page (Pololu #4754, not #1067).
+- The sealed v13 vendor-geometry findings are marked historical-only: `docs/mechanical-readiness-v13.md` carries a Historical status section and `derived/cad-v13/README.md` marks the artifact directory. Verifier-pinned artifacts stay byte-identical so the v13 study remains verifiable.
+- `cad-motor-gap-review` is re-pointed to `docs/motor-dimensions-published.md` (page-published dimensions of Pololu #4754) and `firmware/ORDER-B-BENCH-KIT.md`; its sealed live run record stays as history.

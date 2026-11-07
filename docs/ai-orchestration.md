@@ -19,6 +19,7 @@ Everything generated here is agent-run and advisory. It is not owner-reviewed en
 - A substitute for physical testing.
 - A way to store API credentials.
 - A claim that any AI output is validated engineering work.
+- A way to research or adopt vendor CAD.
 
 ## Provider families
 
@@ -39,6 +40,12 @@ Every provider entry carries:
 - `auth_env` — the environment-variable name that holds the key, never the value.
 
 Automatic selection picks the cheapest live provider whose family matches the task kind. `planned` transports are registered so the key families stay visible, but they are never auto-selected and fail with a clear message if requested live.
+
+## Task-authoring rules
+
+- Manufacturer product pages, datasheets, and drawings are allowed evidence.
+- Vendor CAD files are not: no task may search for, download, import, or build on vendor CAD.
+- Geometry authority is the owner's physical measurement of received parts, or open-source models authored in this repository.
 
 ## Usage
 

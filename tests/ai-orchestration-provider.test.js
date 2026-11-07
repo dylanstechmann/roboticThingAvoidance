@@ -76,9 +76,28 @@ test('real registry routes each task family to a live provider of that family', 
   const pick = id => selectProvider(realTask(id), providers);
   assert.equal(pick('cad-motor-gap-review').id, 'nvidia-robotics');
   assert.equal(pick('rules-update-scan').id, 'exa-search');
-  assert.equal(pick('vendor-cad-research').id, 'exa-search');
   assert.equal(pick('literature-search').id, 'openalex-search');
   assert.equal(pick('vendor-page-read').id, 'jina-read');
+});
+
+test('no task targets vendor CAD research', () => {
+  const tasks = loadTaskManifest(DEFAULT_MANIFEST);
+  for (const task of tasks) {
+    assert.ok(!/vendor-cad/.test(task.id), task.id);
+    assert.ok(!/vendor-cad/.test(task.prompt_file), task.prompt_file);
+    assert.ok(!/vendor-cad/.test(task.output_name), task.output_name);
+    for (const input of task.input_files) {
+      assert.ok(!input.startsWith('derived/cad-v13/'), input);
+    }
+  }
+  const promptFiles = fs.readdirSync(path.join(root, 'prompts')).filter(f => f.endsWith('.md'));
+  for (const file of promptFiles) {
+    assert.ok(!/vendor-cad/i.test(file), file);
+    assert.ok(!/vendor-cad/i.test(fs.readFileSync(path.join(root, 'prompts', file), 'utf8')), file);
+  }
+  const pageRead = tasks.find(t => t.id === 'vendor-page-read');
+  assert.ok(pageRead, 'vendor-page-read task must exist');
+  assert.match(pageRead.query, /product\/4754/);
 });
 
 test('selectProvider picks the cheapest matching provider without a preference match', () => {
