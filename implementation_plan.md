@@ -26,7 +26,7 @@ Use JSON-only data structures so the harness can be audited and diffed.
      "id": "nvidia-robotics",
      "role": ["robotics", "vision", "policy"],
      "endpoint": "https://integrate.api.nvidia.com/v1",
-     "model_hint": "nvidia/gr00t-n1.5",
+     "model_hint": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
      "auth_env": "NVIDIA_API_KEY",
      "transport": "openai-compat",
      "max_tokens_hint": 4096,
@@ -64,7 +64,7 @@ Use JSON-only data structures so the harness can be audited and diffed.
    {
      "task_id": "cad-motor-gap-review",
      "provider_id": "nvidia-robotics",
-     "model": "nvidia/gr00t-n1.5",
+     "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
      "started_at": "2026-11-07T12:00:00.000Z",
      "finished_at": "2026-11-07T12:03:12.000Z",
      "status": "success",
@@ -171,6 +171,13 @@ New functions in `tools/ai-orchestrate.js`:
    - Validates that every referenced input and prompt file exists.
    - Rejects duplicate task IDs.
 
+3. `loadSecretsFile(file)`
+   - Signature: `loadSecretsFile(file = ~/.config/ai-keys.env) -> {path, loaded}`
+   - Loads provider credentials from a private file outside the repository.
+   - Sets them into `process.env` only if they are not already present.
+   - Returns the path and number of keys loaded.
+   - Refuses to read a secrets file located inside the repository.
+
 4. `selectProvider(task, providers)`
    - Signature: `selectProvider(task, providers) -> ProviderSpec`
    - Prefers an intersection of `task.preferred_providers` and provider `role`.
@@ -180,7 +187,7 @@ New functions in `tools/ai-orchestrate.js`:
 5. `buildPrompt(task, provider)`
    - Signature: `buildPrompt(task, provider) -> string`
    - Loads `task.prompt_file`.
-   - Appends labeled input file paths and hashes.
+   - Appends the full text of each input file with its path and SHA-256 hash.
    - Includes an explicit instruction: “Do not claim owner review or physical validation.”
 
 6. `hashText(text)`
@@ -313,6 +320,7 @@ External integration requirements:
    - `selectProvider` prefers an explicit provider, then role match, then deterministic fallback.
    - `buildPrompt` includes the advisory label and input hashes.
    - `runTask --dry-run` creates evidence and a run record without network access.
+   - `loadSecretsFile` loads a private credentials file and rejects paths inside the repository.
    - `writeRunRecord` never includes credential-like strings.
    - Generated evidence files are deterministic in dry-run mode.
 

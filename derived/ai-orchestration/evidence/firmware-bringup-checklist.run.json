@@ -1,12 +1,12 @@
 {
   "task_id": "firmware-bringup-checklist",
-  "provider_id": "together-general",
-  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
-  "started_at": "2026-11-07T15:25:55.378Z",
-  "finished_at": "2026-11-07T15:25:55.378Z",
+  "provider_id": "fireworks-general",
+  "model": "accounts/fireworks/models/gpt-oss-120b",
+  "started_at": "2026-11-07T16:03:58.553Z",
+  "finished_at": "2026-11-07T16:04:06.038Z",
   "status": "success",
-  "prompt_sha256": "0bf69ae194539c6898ab783af9001ca1a82734603ba00da8c4b85a3f27950b59",
-  "response_sha256": "7eb17c191e6649fc0e0959bc242d568db5f93ae6a8df27ff37adf1037b024440",
+  "prompt_sha256": "b37aa89bcf7ba2413ce21c628dcdf5c6e54b39bdb42fd29b1c4979b37ccb11a8",
+  "response_sha256": "85df6a0e6a4bbb68115df2cefaa6e889269283570b9873a775ff1fcc0183bfd8",
   "input_files": [
     {
       "path": "firmware/README.md",

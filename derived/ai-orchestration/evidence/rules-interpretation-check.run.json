@@ -1,12 +1,12 @@
 {
   "task_id": "rules-interpretation-check",
-  "provider_id": "openrouter-general",
-  "model": "openrouter/auto",
-  "started_at": "2026-11-07T15:25:55.510Z",
-  "finished_at": "2026-11-07T15:25:55.510Z",
+  "provider_id": "deepinfra-general",
+  "model": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+  "started_at": "2026-11-07T15:57:22.466Z",
+  "finished_at": "2026-11-07T15:57:50.677Z",
   "status": "success",
-  "prompt_sha256": "1c8d462dabd1506d9585efa901128d74ba23f7dc4b291d2cbcb354ad17b223f0",
-  "response_sha256": "15db15cf7ceffb12233e59a84873c45d3ae07025234350647faaa9476e6aa337",
+  "prompt_sha256": "3500c20c2ceb1c5e23f876549a43d80420805b7cf0478181072bc585037d7a2a",
+  "response_sha256": "42b1d3928fe80afc976fe22598f593db3c8c31b038ca5b247469a290980bca5d",
   "input_files": [
     {
       "path": "RULES-AND-SOURCES.md",

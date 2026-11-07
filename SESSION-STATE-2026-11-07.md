@@ -62,6 +62,8 @@ Relevant facts: `random_layout` (pinned) hardcodes `GUIDE_PLUSH` and has no shap
 - All outputs are advisory and must be explicitly owner-reviewed before being treated as engineering evidence.
 - The API keys pasted into this session are compromised and must be rotated before any live provider call.
 - New credentials must be stored only in private provider consoles or `~/.config/ai-keys.env`; they must never be committed to this repository.
+- The harness now loads `~/.config/ai-keys.env` automatically, so keys do not have to be exported or typed manually.
+- Live advisory runs were exercised with OpenRouter, NVIDIA Nemotron omni reasoning, Fireworks GPT-OSS, and DeepInfra; all outputs remain advisory and owner-review-gated.
 - No changes are planned to `main` or to the eight published world branches.
 
 Run `git log --oneline --decorate`, `git branch -avv`, `git ls-remote --heads origin 'refs/heads/world-*'`, and read `implementation_plan.md`, `docs/worlds.md`, and this file. The pinned-file constraint is the first trap: never edit `mission.py`, `routes.py`, `field.py`, `obstacles.py`, or the other pinned inputs. Confirm placeholders remain semantic stubs before changing simulator code.

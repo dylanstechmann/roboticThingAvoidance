@@ -39,21 +39,22 @@ node tools/ai-orchestrate.js \
   --dry-run
 ```
 
-Live mode requires the provider’s environment variable, for example:
+Live mode automatically loads keys from `~/.config/ai-keys.env` if that file exists. You do not have to export keys manually.
+
+Example:
 
 ```sh
-export NVIDIA_API_KEY=…
 node tools/ai-orchestrate.js \
   --task cad-motor-gap-review \
   --provider nvidia-robotics \
   --live
 ```
 
-The key is read from the environment and never written to disk by this tool.
+The loader only reads keys from that private file or the environment; it never writes credentials back to disk. Use `--secrets-file FILE` to choose a different private file, or `--no-secrets-file` to disable automatic loading.
 
 ## Provider routing
 
-- Robotics, CAD, and vision tasks prefer NVIDIA-style robotics/VLM providers.
+- Robotics, CAD, and vision tasks prefer NVIDIA-style robotics/VLM providers. The current registry uses `nvidia/nemotron-3-nano-omni-30b-a3b-reasoning` for those tasks.
 - Rules interpretation and code review prefer general reasoning providers such as OpenRouter, Together, Fireworks, or DeepInfra.
 - Web research can use Exa, Brave, Jina, or Firecrawl, but those are not part of this default harness.
 - Literature tasks can use OpenAlex, Semantic Scholar, Core, or ORCID when a cited source is needed.
@@ -61,9 +62,10 @@ The key is read from the environment and never written to disk by this tool.
 ## Credential policy
 
 1. Rotate any key that has been pasted into a chat.
-2. Store new credentials only in a private secrets file or provider console.
-3. Never paste keys into this repository, prompts, or generated artifacts.
-4. Run the secrets guard before every commit.
+2. Store new credentials in `~/.config/ai-keys.env` with mode `600`, or in the provider console.
+3. Keep the secrets file outside this repository.
+4. Never paste keys into this repository, prompts, or generated artifacts.
+5. Run the secrets guard before every commit.
 
 ## Evidence policy
 

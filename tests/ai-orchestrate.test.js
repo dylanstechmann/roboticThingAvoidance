@@ -10,12 +10,14 @@ const {
   containsCredential,
   loadProviderRegistry,
   loadTaskManifest,
+  loadSecretsFile,
   selectProvider,
   buildPrompt,
   runTask,
   parseArgs,
   DEFAULT_REGISTRY,
-  DEFAULT_MANIFEST
+  DEFAULT_MANIFEST,
+  DEFAULT_SECRETS_FILE
 } = require('../tools/ai-orchestrate.js');
 
 const root = path.resolve(__dirname, '..');
@@ -104,6 +106,28 @@ test('runTask dry-run writes evidence and a record', async () => {
   } finally {
     fs.rmSync(evidenceDir, { recursive: true, force: true });
   }
+});
+
+test('loadSecretsFile reads a private file outside the repository', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ai-keys-'));
+  const file = path.join(dir, 'ai-keys.env');
+  fs.writeFileSync(file, 'AI_TEST_KEY_1=value-1\nAI_TEST_KEY_2="value 2"\n# comment\n', 'utf8');
+  delete process.env.AI_TEST_KEY_1;
+  delete process.env.AI_TEST_KEY_2;
+  try {
+    const result = loadSecretsFile(file);
+    assert.equal(result.loaded, 2);
+    assert.equal(process.env.AI_TEST_KEY_1, 'value-1');
+    assert.equal(process.env.AI_TEST_KEY_2, 'value 2');
+  } finally {
+    delete process.env.AI_TEST_KEY_1;
+    delete process.env.AI_TEST_KEY_2;
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('loadSecretsFile rejects files inside the repository', () => {
+  assert.throws(() => loadSecretsFile(path.join(root, 'ai-keys.env')));
 });
 
 test('parseArgs accepts documented flags', () => {

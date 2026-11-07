@@ -5,7 +5,7 @@
     "endpoint": "https://integrate.api.nvidia.com/v1/chat/completions",
     "auth_env": "NVIDIA_API_KEY",
     "transport": "openai-compat",
-    "model_hint": "nvidia/llama-3.1-nemotron-70b-instruct",
+    "model_hint": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
     "max_tokens_hint": 4096,
     "notes": "Use for robotics, CAD, and field-image reasoning."
   },
@@ -27,15 +27,15 @@
     "transport": "openai-compat",
     "model_hint": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
     "max_tokens_hint": 4096,
-    "notes": "General reasoning and code review."
+    "notes": "General reasoning and code review. The default serverless API rejected the sampled Turbo model; a dedicated endpoint is required for that model."
   },
   {
     "id": "fireworks-general",
-    "role": ["review", "code"],
+    "role": ["review", "code", "planning"],
     "endpoint": "https://api.fireworks.ai/inference/v1/chat/completions",
     "auth_env": "FIREWORKS_API_KEY",
     "transport": "openai-compat",
-    "model_hint": "accounts/fireworks/models/llama-v3p1-70b-instruct",
+    "model_hint": "accounts/fireworks/models/gpt-oss-120b",
     "max_tokens_hint": 4096,
     "notes": "Code review and fast planning."
   },

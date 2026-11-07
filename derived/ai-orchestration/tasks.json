@@ -40,8 +40,9 @@
     ],
     "prompt_file": "prompts/firmware-bringup-checklist.md",
     "preferred_providers": [
-      "together-general",
-      "openrouter-general"
+      "fireworks-general",
+      "openrouter-general",
+      "together-general"
     ],
     "output_name": "firmware-bringup-checklist.md",
     "owner_review": false
@@ -56,8 +57,8 @@
     ],
     "prompt_file": "prompts/practice-field-plan.md",
     "preferred_providers": [
-      "openrouter-general",
-      "together-general"
+      "fireworks-general",
+      "openrouter-general"
     ],
     "output_name": "practice-field-plan.md",
     "owner_review": false

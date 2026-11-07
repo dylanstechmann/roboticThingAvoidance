@@ -1,12 +1,12 @@
 {
   "task_id": "cad-motor-gap-review",
   "provider_id": "nvidia-robotics",
-  "model": "nvidia/llama-3.1-nemotron-70b-instruct",
-  "started_at": "2026-11-07T15:25:55.309Z",
-  "finished_at": "2026-11-07T15:25:55.310Z",
+  "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+  "started_at": "2026-11-07T15:55:29.554Z",
+  "finished_at": "2026-11-07T15:55:42.645Z",
   "status": "success",
-  "prompt_sha256": "71d852d80f3d29f4e27b6138795bd4f78454b8052c32cfdbd7aa58ffd27da568",
-  "response_sha256": "48ff0bdd08867f4b5b02fb2fec6d1a062c3d47cf3fad4127cc6871b3b033eb7b",
+  "prompt_sha256": "4a7f3d7407846ab4c3657e8c9746ac820f52587924c89dd83ebe6fd3895ccc2e",
+  "response_sha256": "1eed9f359d8decf4c862f73442b2e4d0074e1337a8679c5510d7fad8c5a28fda",
   "input_files": [
     {
       "path": "docs/mechanical-readiness-v13.md",

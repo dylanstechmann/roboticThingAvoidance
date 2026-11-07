@@ -2,11 +2,11 @@
   "task_id": "organizer-qa-draft",
   "provider_id": "openrouter-general",
   "model": "openrouter/auto",
-  "started_at": "2026-11-07T15:25:55.238Z",
-  "finished_at": "2026-11-07T15:25:55.238Z",
+  "started_at": "2026-11-07T15:56:59.040Z",
+  "finished_at": "2026-11-07T15:57:17.950Z",
   "status": "success",
   "prompt_sha256": "6960c5bff1305344d11ffcf8cb4a2a3094c16e045b40a7addf8b584fe91ffde7",
-  "response_sha256": "802ea9ad2af819e4767eb2a80c0bda6e9b790e6a479f2a4e2426a19bfc360043",
+  "response_sha256": "c1ab69e439f71f507b7f34414e334d03c8556aab37cd3b96f5313122444e465d",
   "input_files": [
     {
       "path": "derived/qa-pack-v10/QUESTIONS.md",

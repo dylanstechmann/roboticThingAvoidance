@@ -1,10 +1,13 @@
-# Dry-run advisory output
+**1.** The motor‑body clearance is measured at 7.8 mm, which is 0.2 mm below the required 8 mm clearance.
 
-task_id: cad-motor-gap-review
-provider_id: nvidia-robotics
-model_hint: nvidia/llama-3.1-nemotron-70b-instruct
-prompt_sha256: 71d852d80f3d29f4e27b6138795bd4f78454b8052c32cfdbd7aa58ffd27da568
+**2.** Advisory: Perform the following physical measurements to resolve the fit issue:
+- Measure the actual motor body outer diameter and the corresponding clearance to the bracket to verify the 7.8 mm gap.
+- Measure the physical length of the motor shaft to confirm whether it matches the published 16 mm dimension or the archived 22 mm STEP model.
+- Measure the hub bore diameter to verify compliance with the nominal 6 mm shaft‑bore requirement.
 
-This is a deterministic dry-run. No network request was made and no provider credentials were used.
+**3.** Advisory: Re‑check these CAD/assembly assumptions:
+- The nominal 8 mm clearance is treated as a named geometric check without tolerance qualification.
+- The 16 mm shaft derivative is assumed to match the motor body dimensions, ignoring the documented 16 mm vs 22 mm shaft conflict.
+- The 6 mm shaft‑bore fit is assumed to be exact, despite the lack of received‑part tolerance analysis.
 
-Next owner action: review this plan, then enable a live provider with the corresponding environment variable.
+**4.** Advisory: The current design is **not safe to fabricate as‑is** due to the unqualified motor‑body gap failure and the unresolved shaft length source conflict.

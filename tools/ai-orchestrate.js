@@ -7,11 +7,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const os = require('node:os');
 
 const ROOT = path.resolve(__dirname, '..');
 const DEFAULT_REGISTRY = path.join(ROOT, 'derived/ai-orchestration/registry.json');
 const DEFAULT_MANIFEST = path.join(ROOT, 'derived/ai-orchestration/tasks.json');
 const EVIDENCE_DIR = path.join(ROOT, 'derived/ai-orchestration/evidence');
+const DEFAULT_SECRETS_FILE = path.join(os.homedir(), '.config', 'ai-keys.env');
 
 const PROVIDER_FIELDS = ['id', 'role', 'endpoint', 'auth_env', 'transport', 'model_hint'];
 const TASK_FIELDS = ['id', 'kind', 'title', 'input_files', 'prompt_file', 'preferred_providers', 'output_name'];
@@ -43,6 +45,33 @@ function readJsonFile(file) {
     throw new Error(`credential-like content found in ${file}`);
   }
   return JSON.parse(raw);
+}
+
+function loadSecretsFile(file = DEFAULT_SECRETS_FILE) {
+  if (!file) {
+    return { path: null, loaded: 0 };
+  }
+  const resolved = path.resolve(file);
+  if (resolved === ROOT || resolved.startsWith(ROOT + path.sep)) {
+    throw new Error('secrets file must live outside the repository');
+  }
+  if (!fs.existsSync(resolved)) {
+    return { path: resolved, loaded: 0 };
+  }
+  const raw = fs.readFileSync(resolved, 'utf8');
+  const lines = raw.split(/\r?\n/);
+  let loaded = 0;
+  for (const line of lines) {
+    const match = /^([A-Z][A-Z0-9_]*)\s*=\s*(.*)$/.exec(line.trim());
+    if (!match) continue;
+    const key = match[1];
+    const value = match[2].replace(/^['"]|['"]$/g, '');
+    if (!process.env[key]) {
+      process.env[key] = value;
+      loaded += 1;
+    }
+  }
+  return { path: resolved, loaded };
 }
 
 function validateProvider(provider) {
@@ -267,6 +296,7 @@ function parseArgs(argv) {
     dryRun: false,
     live: false,
     help: false,
+    secretsFile: DEFAULT_SECRETS_FILE,
     unknown: []
   };
   for (let i = 0; i < argv.length; i++) {
@@ -274,10 +304,12 @@ function parseArgs(argv) {
     if (arg === '--help') args.help = true;
     else if (arg === '--dry-run') args.dryRun = true;
     else if (arg === '--live') args.live = true;
+    else if (arg === '--no-secrets-file') args.secretsFile = null;
     else if (arg === '--task') args.task = argv[++i];
     else if (arg === '--provider') args.provider = argv[++i];
     else if (arg === '--registry') args.registry = argv[++i];
     else if (arg === '--manifest') args.manifest = argv[++i];
+    else if (arg === '--secrets-file') args.secretsFile = argv[++i];
     else args.unknown.push(arg);
   }
   if (args.dryRun && args.live) {
@@ -313,9 +345,10 @@ function printSummary(records) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
-    console.log('Usage: node tools/ai-orchestrate.js --task <id> --provider <id> (--dry-run | --live)');
+    console.log('Usage: node tools/ai-orchestrate.js --task <id> --provider <id> (--dry-run | --live) [--secrets-file FILE | --no-secrets-file]');
     return;
   }
+  loadSecretsFile(args.secretsFile);
   const providers = loadProviderRegistry(args.registry);
   const tasks = loadTaskManifest(args.manifest);
   const task = tasks.find(t => t.id === args.task);
@@ -340,6 +373,7 @@ module.exports = {
   containsCredential,
   loadProviderRegistry,
   loadTaskManifest,
+  loadSecretsFile,
   selectProvider,
   buildPrompt,
   runTask,
@@ -347,6 +381,7 @@ module.exports = {
   printSummary,
   DEFAULT_REGISTRY,
   DEFAULT_MANIFEST,
+  DEFAULT_SECRETS_FILE,
   EVIDENCE_DIR,
   PROVIDER_FIELDS,
   TASK_FIELDS

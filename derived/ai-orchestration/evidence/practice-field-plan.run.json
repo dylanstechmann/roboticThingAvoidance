@@ -1,12 +1,12 @@
 {
   "task_id": "practice-field-plan",
-  "provider_id": "openrouter-general",
-  "model": "openrouter/auto",
-  "started_at": "2026-11-07T15:25:55.444Z",
-  "finished_at": "2026-11-07T15:25:55.444Z",
+  "provider_id": "fireworks-general",
+  "model": "accounts/fireworks/models/gpt-oss-120b",
+  "started_at": "2026-11-07T16:03:58.552Z",
+  "finished_at": "2026-11-07T16:04:05.698Z",
   "status": "success",
-  "prompt_sha256": "3dbcbd91dec1862a8ae6738c0e559a7de775f5f111292005daf117c067f5a078",
-  "response_sha256": "5c6df56b2c6cc89c6d2289a5e23b37dfd6ca0add89847d9a9a89fc6484e391f7",
+  "prompt_sha256": "11fb31fe3424d7b44473a16ef73a1475da680c85196ff7934c9012dda6a4219d",
+  "response_sha256": "5c092c53bac90645129a733f54682a055fb3aca3c14930d8a45af91b345bf033",
   "input_files": [
     {
       "path": "BACKCAST-2026-11.md",

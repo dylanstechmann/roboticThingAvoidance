@@ -65,7 +65,7 @@ The repository includes a small local orchestration harness for routing narrowly
 
 Everything produced by this harness is labeled agent-run and advisory. It is not owner-reviewed engineering evidence until the owner explicitly marks it reviewed.
 
-The harness never stores API credentials. Provider keys are read only from environment variables named in `derived/ai-orchestration/registry.json`.
+The harness never stores API credentials. Provider keys are loaded automatically from `~/.config/ai-keys.env` or from environment variables named in `derived/ai-orchestration/registry.json`.
 
 
 ## Sharable showcase release habit
