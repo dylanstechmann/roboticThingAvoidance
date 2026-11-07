@@ -86,3 +86,10 @@ Run `git log --oneline --decorate`, `git branch -avv`, `git ls-remote --heads or
 - The `vendor-cad-research` task, prompt, and dry-run evidence are deleted; `vendor-page-read` now targets the correct BOM motor page (Pololu #4754, not #1067).
 - The sealed v13 vendor-geometry findings are marked historical-only: `docs/mechanical-readiness-v13.md` carries a Historical status section and `derived/cad-v13/README.md` marks the artifact directory. Verifier-pinned artifacts stay byte-identical so the v13 study remains verifiable.
 - `cad-motor-gap-review` is re-pointed to `docs/motor-dimensions-published.md` (page-published dimensions of Pololu #4754) and `firmware/ORDER-B-BENCH-KIT.md`; its sealed live run record stays as history.
+
+## E03 floor-trial firmware (2026-11-07)
+
+- Added the missing middle of the E03 chain for BACKCAST G1 ("E03 floor trials", due Dec 6): `firmware/pico2/floor_e03.py` (closed-loop straight/spin trials, encoder-odometry stopping with braking lookahead — the shaper's yaw decel alone would overshoot a 360-degree spin by ~25 degrees, five times the sealed 5-degree median-spin gate), a `main.floor()` REPL entry (boot stays IDLE), and `tools/bench/log_to_e03.py` (one CSV row per `/e03-<id>.jsonl`, template columns and trial-id formats exact; human-measured fields stay blank).
+- Sealed contract untouched: `tools/mule-measurements-v4.js`/`-v10.js`, the `derived/drivetrain-mule-v10/**` package (tool-generated, hash-verified), the templates, and the telemetry schema (trials log in the existing `DRIVE` mode).
+- The estimator/mission path stays deliberately unwired (`mission_driver.py`: no pose source until the sensors are chosen, G2 Dec 13). E03 needs no gyro, reflectance or ToF — drift and spin error are physical (tape) measurements.
+- Host tests: `firmware/host_tests/test_floor_e03.py` (7 tests, plant-backed; note the plant couples yaw to forward velocity, so in-place spin ground truth is the wheel differential, not body yaw). Firmware suite 79 tests PASS; MicroPython lint clean. Nothing run on hardware; flashing and floor trials remain owner actions under the approved setups, after E02A/E02.

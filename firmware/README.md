@@ -9,6 +9,7 @@
 - **E-stop:** the hardware e-stop must cut motor power by itself (GM1 R04). The firmware's e-stop input only mirrors it.
 - **Boot:** the board boots to **IDLE**, with the driver disabled and zero duty.
 - **Bench sessions:** run the bench script only from the REPL, inside an approved, supervised, current-limited setup (`derived/drivetrain-mule-v4/bench-readiness.md`, gates R2–R4), with the wheels off the ground.
+- **Floor trials:** run the E03 floor script only from the REPL, inside an approved floor setup: wheels on the ground, a cleared area, one documented surface, the e-stop in reach, after E02A/E02. The trials need no gyro, reflectance or ToF — drift and spin error are physical (tape) measurements.
 - **Latched stops:** every stop latches and never resumes by itself. Causes: e-stop, driver fault, a 250 ms command watchdog, repeated loop overruns, or the 178 s auto-stop. Re-arming needs a released e-stop and zero commands.
 - **Pin map:** `pico2/config.py` holds a **provisional** pin map. The bench/electrical lead must check it against the chosen driver and the wiring before anything is energized (see `ORDER-B-BENCH-KIT.md`).
 - **Encoder logic levels:** the 37D encoders output 5 V logic, so level-shift it to 3.3 V.
@@ -26,13 +27,14 @@
 | `pico2/telemetry.py` | RAM ring buffer of fixed-width records (about 165 KB for 3000); JSON Lines on dump, schema `../schemas/telemetry-v1.json` |
 | `pico2/runner.py` | 200 Hz fixed-rate loop using wrapping `ticks_us` arithmetic |
 | `pico2/bench_e02.py` | E02 open-loop duty steps |
-| `pico2/main.py` | Boot to IDLE; `main.bench()` from the REPL |
+| `pico2/floor_e03.py` | E03 closed-loop floor trials (straight/spin) that brake onto the target |
+| `pico2/main.py` | Boot to IDLE; `main.bench()` and `main.floor()` from the REPL |
 | `mission_driver.py` | Turns the supervisor's phases into routes and spins; needs no hardware, and `main.py` deliberately cannot start it yet |
 | `route_store.py` | Reads the packed route files, one at a time |
 | `geom.py` | MicroPython-safe planar geometry and 4×4 matrix helpers for the on-board EKF |
 | `estimator.py` | On-board EKF port (`EstimatorBoard`) of `software/stockcar/estimator.py`; not wired into `main.py` |
 | `field_tables.py` | Generated static map (barrier polygons, marking band) and estimator constants (`tools/build_field_tables.py`) |
-| `host_tests/` | 72 CPython tests: safety latch, auto-stop, watchdog, controller, drive shaping, all 16 encoder transitions, ring buffer, a full simulated bench run, MicroPython lint, bench tools, and the real control loop against the corrected drivetrain model (`plant_hal.py`), including whole laps and pit legs (`route_follow.py`) and whole missions (`full_mission.py`) |
+| `host_tests/` | 79 CPython tests: safety latch, auto-stop, watchdog, controller, drive shaping, all 16 encoder transitions, ring buffer, a full simulated bench run, MicroPython lint, bench tools, the E03 floor trials, and the real control loop against the corrected drivetrain model (`plant_hal.py`), including whole laps and pit legs (`route_follow.py`) and whole missions (`full_mission.py`) |
 
 The plant-backed tests catch control bugs, but their friction, mass and inertia values are placeholders, so passing them does not show that the gains suit a real robot. The motion limits in `config.py` come from the conservative envelope in `../derived/envelope-v10/`. Replace them after the E03 floor trials.
 
@@ -66,6 +68,19 @@ repo:    python -I tools/telemetry_schema.py measurements/mule/<date>/e02-1.json
 ```
 
 The fitted gain, deadband and time constant replace the placeholder feed-forward in `motor.py` and the simulated motor. Record every change as a dated, reviewed edit.
+
+## E03 floor data flow
+
+```text
+board:   >>> import main; main.floor("straight", speed_in_s=8, run_id=1)    -> /e03-1.jsonl
+         >>> import main; main.floor("spin", direction="left", run_id=2)   -> /e03-2.jsonl
+host:    copy the file off with Thonny or mpremote, into measurements/mule/<date>/
+repo:    python -I tools/bench/log_to_e03.py --support dual-front-rear --mass 2 --kind straight --direction forward --repeat 1 <log>   # one CSV row
+         fill in drift_mm / spin_error_deg (tape), the slip flag, the surface and the provenance columns yourself, and set attempt_status once the row is complete
+         node tools/mule-measurements-v10.js --kind E03 --input <your E03 copy> --output <new file> --progress
+```
+
+Each trial ends its commands one braking allowance short of the target so the shaper's ramp-down lands on it: without that, the yaw decel limit alone would overshoot a 360-degree spin by about 25 degrees, five times the 5-degree median-spin gate. The trial cells (support configuration, mass, 10 straight + 20 left + 20 right per cell) come from the E03 template, not the firmware.
 
 ## Run the host tests
 
