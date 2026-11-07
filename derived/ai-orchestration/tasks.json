@@ -1,0 +1,82 @@
+[
+  {
+    "id": "organizer-qa-draft",
+    "kind": "planning",
+    "title": "Draft concise organizer Q&A questions from the current QA pack",
+    "input_files": [
+      "derived/qa-pack-v10/QUESTIONS.md"
+    ],
+    "prompt_file": "prompts/organizer-qa-draft.md",
+    "preferred_providers": [
+      "openrouter-general",
+      "together-general",
+      "moonshot-kimi"
+    ],
+    "output_name": "organizer-qa-draft.md",
+    "owner_review": false
+  },
+  {
+    "id": "cad-motor-gap-review",
+    "kind": "vision",
+    "title": "Review the 7.8 mm motor-body gap failure and propose measurement checks",
+    "input_files": [
+      "docs/mechanical-readiness-v13.md",
+      "derived/cad-v13/fit-results.json"
+    ],
+    "prompt_file": "prompts/cad-fit-review.md",
+    "preferred_providers": [
+      "nvidia-robotics"
+    ],
+    "output_name": "cad-motor-gap-review.md",
+    "owner_review": false
+  },
+  {
+    "id": "firmware-bringup-checklist",
+    "kind": "planning",
+    "title": "Create a bench-first Pico 2 firmware bring-up checklist",
+    "input_files": [
+      "firmware/README.md",
+      "firmware/pico2/estimator.py"
+    ],
+    "prompt_file": "prompts/firmware-bringup-checklist.md",
+    "preferred_providers": [
+      "together-general",
+      "openrouter-general"
+    ],
+    "output_name": "firmware-bringup-checklist.md",
+    "owner_review": false
+  },
+  {
+    "id": "practice-field-plan",
+    "kind": "planning",
+    "title": "Draft a practice-field build and measurement plan",
+    "input_files": [
+      "BACKCAST-2026-11.md",
+      "docs/mechanical-readiness-v13.md"
+    ],
+    "prompt_file": "prompts/practice-field-plan.md",
+    "preferred_providers": [
+      "openrouter-general",
+      "together-general"
+    ],
+    "output_name": "practice-field-plan.md",
+    "owner_review": false
+  },
+  {
+    "id": "rules-interpretation-check",
+    "kind": "review",
+    "title": "Cross-check V3.0/V3.1 rules interpretations against the current evidence",
+    "input_files": [
+      "RULES-AND-SOURCES.md",
+      "derived/qa-pack-v10/QUESTIONS.md"
+    ],
+    "prompt_file": "prompts/rules-interpretation.md",
+    "preferred_providers": [
+      "openrouter-general",
+      "together-general",
+      "moonshot-kimi"
+    ],
+    "output_name": "rules-interpretation-check.md",
+    "owner_review": false
+  }
+]

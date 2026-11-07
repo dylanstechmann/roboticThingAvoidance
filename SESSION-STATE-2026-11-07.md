@@ -54,4 +54,14 @@ Relevant facts: `random_layout` (pinned) hardcodes `GUIDE_PLUSH` and has no shap
 - Publish primary by fast-forward, siblings with explicit hash-valued `--force-with-lease`, and new placeholder refs with ordinary non-force pushes. Do not update `main` (`f56fb53`) without separate owner approval.
 
 ## Re-orient after compaction
+
+## AI orchestration next phase (2026-11-07)
+
+- The eight-world branch strategy is complete. The next phase is AI-assisted physical bring-up, not more simulation.
+- A local orchestration harness is planned to route narrowly scoped tasks—organizer Q&A drafting, CAD fit review, firmware bring-up, practice-field planning, and rules cross-checks—to suitable external AI providers.
+- All outputs are advisory and must be explicitly owner-reviewed before being treated as engineering evidence.
+- The API keys pasted into this session are compromised and must be rotated before any live provider call.
+- New credentials must be stored only in private provider consoles or `~/.config/ai-keys.env`; they must never be committed to this repository.
+- No changes are planned to `main` or to the eight published world branches.
+
 Run `git log --oneline --decorate`, `git branch -avv`, `git ls-remote --heads origin 'refs/heads/world-*'`, and read `implementation_plan.md`, `docs/worlds.md`, and this file. The pinned-file constraint is the first trap: never edit `mission.py`, `routes.py`, `field.py`, `obstacles.py`, or the other pinned inputs. Confirm placeholders remain semantic stubs before changing simulator code.

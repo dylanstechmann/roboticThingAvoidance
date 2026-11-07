@@ -1,0 +1,18 @@
+{
+  "task_id": "organizer-qa-draft",
+  "provider_id": "openrouter-general",
+  "model": "openrouter/auto",
+  "started_at": "2026-11-07T15:25:55.238Z",
+  "finished_at": "2026-11-07T15:25:55.238Z",
+  "status": "success",
+  "prompt_sha256": "6960c5bff1305344d11ffcf8cb4a2a3094c16e045b40a7addf8b584fe91ffde7",
+  "response_sha256": "802ea9ad2af819e4767eb2a80c0bda6e9b790e6a479f2a4e2426a19bfc360043",
+  "input_files": [
+    {
+      "path": "derived/qa-pack-v10/QUESTIONS.md",
+      "sha256": "e29cdd5495ad1d80c0baf3f60000e3fb4920fbcba8b2d003d1c91b1e2380513c"
+    }
+  ],
+  "output_path": "derived/ai-orchestration/evidence/organizer-qa-draft.md",
+  "notes": "Agent-run; not owner-reviewed."
+}

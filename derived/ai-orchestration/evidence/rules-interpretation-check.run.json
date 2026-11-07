@@ -1,0 +1,22 @@
+{
+  "task_id": "rules-interpretation-check",
+  "provider_id": "openrouter-general",
+  "model": "openrouter/auto",
+  "started_at": "2026-11-07T15:25:55.510Z",
+  "finished_at": "2026-11-07T15:25:55.510Z",
+  "status": "success",
+  "prompt_sha256": "1c8d462dabd1506d9585efa901128d74ba23f7dc4b291d2cbcb354ad17b223f0",
+  "response_sha256": "15db15cf7ceffb12233e59a84873c45d3ae07025234350647faaa9476e6aa337",
+  "input_files": [
+    {
+      "path": "RULES-AND-SOURCES.md",
+      "sha256": "3638e194da4560acff83dbeb4a7dd48192a0b116586317b24202ca3f4fabf442"
+    },
+    {
+      "path": "derived/qa-pack-v10/QUESTIONS.md",
+      "sha256": "e29cdd5495ad1d80c0baf3f60000e3fb4920fbcba8b2d003d1c91b1e2380513c"
+    }
+  ],
+  "output_path": "derived/ai-orchestration/evidence/rules-interpretation-check.md",
+  "notes": "Agent-run; not owner-reviewed."
+}

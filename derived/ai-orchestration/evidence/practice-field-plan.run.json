@@ -1,0 +1,22 @@
+{
+  "task_id": "practice-field-plan",
+  "provider_id": "openrouter-general",
+  "model": "openrouter/auto",
+  "started_at": "2026-11-07T15:25:55.444Z",
+  "finished_at": "2026-11-07T15:25:55.444Z",
+  "status": "success",
+  "prompt_sha256": "3dbcbd91dec1862a8ae6738c0e559a7de775f5f111292005daf117c067f5a078",
+  "response_sha256": "5c6df56b2c6cc89c6d2289a5e23b37dfd6ca0add89847d9a9a89fc6484e391f7",
+  "input_files": [
+    {
+      "path": "BACKCAST-2026-11.md",
+      "sha256": "1ce42b12c35e048d3872b1981b0112a500f7cee647af093823d6151918127c9f"
+    },
+    {
+      "path": "docs/mechanical-readiness-v13.md",
+      "sha256": "5e3cce58c7611a44c1042099d474629cbebebe72d24b68dd6bde5acfb961ad50"
+    }
+  ],
+  "output_path": "derived/ai-orchestration/evidence/practice-field-plan.md",
+  "notes": "Agent-run; not owner-reviewed."
+}

@@ -1,0 +1,22 @@
+{
+  "task_id": "firmware-bringup-checklist",
+  "provider_id": "together-general",
+  "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+  "started_at": "2026-11-07T15:25:55.378Z",
+  "finished_at": "2026-11-07T15:25:55.378Z",
+  "status": "success",
+  "prompt_sha256": "0bf69ae194539c6898ab783af9001ca1a82734603ba00da8c4b85a3f27950b59",
+  "response_sha256": "7eb17c191e6649fc0e0959bc242d568db5f93ae6a8df27ff37adf1037b024440",
+  "input_files": [
+    {
+      "path": "firmware/README.md",
+      "sha256": "7a4f8ace575760d737a6b2c60c0d8fa676e4a6a89356b0920a95f034cf4969c7"
+    },
+    {
+      "path": "firmware/pico2/estimator.py",
+      "sha256": "da653df3befaf360340e340ef3b42db478a46d6c5889aad98a456f92ed179c68"
+    }
+  ],
+  "output_path": "derived/ai-orchestration/evidence/firmware-bringup-checklist.md",
+  "notes": "Agent-run; not owner-reviewed."
+}

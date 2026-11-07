@@ -1,0 +1,122 @@
+[
+  {
+    "id": "nvidia-robotics",
+    "role": ["robotics", "vision", "review"],
+    "endpoint": "https://integrate.api.nvidia.com/v1/chat/completions",
+    "auth_env": "NVIDIA_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "nvidia/llama-3.1-nemotron-70b-instruct",
+    "max_tokens_hint": 4096,
+    "notes": "Use for robotics, CAD, and field-image reasoning."
+  },
+  {
+    "id": "openrouter-general",
+    "role": ["review", "planning", "summarize", "code"],
+    "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+    "auth_env": "OPENROUTER_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "openrouter/auto",
+    "max_tokens_hint": 4096,
+    "notes": "General reasoning and multi-model routing."
+  },
+  {
+    "id": "together-general",
+    "role": ["review", "planning", "summarize", "code"],
+    "endpoint": "https://api.together.xyz/v1/chat/completions",
+    "auth_env": "TOGETHER_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+    "max_tokens_hint": 4096,
+    "notes": "General reasoning and code review."
+  },
+  {
+    "id": "fireworks-general",
+    "role": ["review", "code"],
+    "endpoint": "https://api.fireworks.ai/inference/v1/chat/completions",
+    "auth_env": "FIREWORKS_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "accounts/fireworks/models/llama-v3p1-70b-instruct",
+    "max_tokens_hint": 4096,
+    "notes": "Code review and fast planning."
+  },
+  {
+    "id": "deepinfra-general",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.deepinfra.com/v1/openai/chat/completions",
+    "auth_env": "DEEPINFRA_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "meta-llama/Meta-Llama-3.1-70B-Instruct",
+    "max_tokens_hint": 4096,
+    "notes": "General summarization and review."
+  },
+  {
+    "id": "novita-general",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.novita.ai/v3/openai/chat/completions",
+    "auth_env": "NOVITA_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "meta-llama/llama-3.1-70b-instruct",
+    "max_tokens_hint": 4096,
+    "notes": "General reasoning."
+  },
+  {
+    "id": "baseten-text",
+    "role": ["review", "summarize"],
+    "endpoint": "https://inference.baseten.co/v1/chat/completions",
+    "auth_env": "BASTEN_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "text-model-placeholder",
+    "max_tokens_hint": 4096,
+    "notes": "Text-only models; confirm exact model id before use."
+  },
+  {
+    "id": "moonshot-kimi",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.moonshot.ai/v1/chat/completions",
+    "auth_env": "MOONSHOT_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "moonshot-v1-128k",
+    "max_tokens_hint": 4096,
+    "notes": "Long-context review."
+  },
+  {
+    "id": "siliconflow-general",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.siliconflow.com/v1/chat/completions",
+    "auth_env": "SILICONFLOW_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "deepseek-ai/DeepSeek-V3",
+    "max_tokens_hint": 4096,
+    "notes": "General reasoning."
+  },
+  {
+    "id": "atlas-general",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.atlascloud.ai/v1/chat/completions",
+    "auth_env": "ATLAS_CLOUD_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "placeholder-model",
+    "max_tokens_hint": 4096,
+    "notes": "Endpoint and model id must be confirmed before live use."
+  },
+  {
+    "id": "parasail-general",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.parasail.io/v1/chat/completions",
+    "auth_env": "PARASAIL_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "placeholder-model",
+    "max_tokens_hint": 4096,
+    "notes": "Endpoint and model id must be confirmed before live use."
+  },
+  {
+    "id": "llmtr-general",
+    "role": ["review", "summarize"],
+    "endpoint": "https://api.llmtr.com/v1/chat/completions",
+    "auth_env": "LLMTR_API_KEY",
+    "transport": "openai-compat",
+    "model_hint": "placeholder-model",
+    "max_tokens_hint": 4096,
+    "notes": "Endpoint and model id must be confirmed before live use."
+  }
+]

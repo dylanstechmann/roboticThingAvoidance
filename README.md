@@ -54,6 +54,20 @@ The latest one-file showcase is [`share/Showcase-v13.html`](share/Showcase-v13.h
 | View the robot and field in 3D, offline | `share/Robot-Studio-v8.html` (guide: `derived/robot-studio-v8/README.md`) |
 | Read older announcements and the October plan | `HISTORY.md` |
 
+## AI orchestration
+
+The repository includes a small local orchestration harness for routing narrowly scoped engineering tasks to external AI providers and recording advisory evidence.
+
+- Guide: `docs/ai-orchestration.md`
+- Tool: `tools/ai-orchestrate.js`
+- Tasks: `derived/ai-orchestration/tasks.json`
+- Evidence: `derived/ai-orchestration/evidence/`
+
+Everything produced by this harness is labeled agent-run and advisory. It is not owner-reviewed engineering evidence until the owner explicitly marks it reviewed.
+
+The harness never stores API credentials. Provider keys are read only from environment variables named in `derived/ai-orchestration/registry.json`.
+
+
 ## Sharable showcase release habit
 
 When a new one-file showcase is ready, follow this recurring habit so the GitHub front page always shows the latest showable HTML at the top, before the status detail:
