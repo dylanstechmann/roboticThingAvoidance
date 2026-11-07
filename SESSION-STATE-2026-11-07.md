@@ -67,3 +67,14 @@ Relevant facts: `random_layout` (pinned) hardcodes `GUIDE_PLUSH` and has no shap
 - No changes are planned to `main` or to the eight published world branches.
 
 Run `git log --oneline --decorate`, `git branch -avv`, `git ls-remote --heads origin 'refs/heads/world-*'`, and read `implementation_plan.md`, `docs/worlds.md`, and this file. The pinned-file constraint is the first trap: never edit `mission.py`, `routes.py`, `field.py`, `obstacles.py`, or the other pinned inputs. Confirm placeholders remain semantic stubs before changing simulator code.
+
+## AI orchestration harness expansion (2026-11-07)
+
+- The harness registers all 28 key families from the private key store: 12 live chat/review providers, three planned chat families (inception, omtx, japanfold), five web-search providers, two page-read providers, five scholarly-search providers, and the Modal runtime as planned.
+- Providers carry `family`, `cost_rank` (1 cheapest to 5), and `max_context_tokens`. Automatic selection prefers the cheapest live provider whose family matches the task kind and never auto-selects `planned` transports.
+- Prompts over the context budget are compacted into a digest first (default 12,000 tokens, well below 200k-token windows): live mode uses the cheapest credentialed summarize provider, dry-run uses a deterministic local digest. Digests land in `derived/ai-orchestration/context/`.
+- New live routes mirror the vendored `.agent-tools/mcp/*` endpoint conventions: web search (Exa, Brave, Brave Answers, Jina, Firecrawl), page read (Jina Reader, Firecrawl scrape), and scholarly search (OpenAlex, Semantic Scholar, CORE, PubMed, ORCID).
+- New advisory tasks exercise each family: `rules-update-scan`, `vendor-cad-research`, `literature-search`, and `vendor-page-read` (reads the 37D mm gearmotor vendor page).
+- Owner review workflow: `node tools/ai-orchestrate.js --review --task <id> --status accepted|rejected [--notes ...]` writes `<task-id>.review.json` and mirrors the decision into the run record. Reviewing is an owner action; the agent does not review its own outputs.
+- Fixes along the way: baseten provider `auth_env` typo (`BASTEN_API_KEY` → `BASETEN_API_KEY`), `--help` now reachable, and the jina/omtx credential patterns tightened so environment-variable names do not trip the guard.
+- Tests: `tests/ai-orchestration-provider.test.js` (19 offline tests with stubbed fetch) alongside the original 11.

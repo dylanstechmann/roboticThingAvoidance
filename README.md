@@ -67,6 +67,8 @@ Everything produced by this harness is labeled agent-run and advisory. It is not
 
 The harness never stores API credentials. Provider keys are loaded automatically from `~/.config/ai-keys.env` or from environment variables named in `derived/ai-orchestration/registry.json`.
 
+The registry covers every provider family in the key store: chat/review, web search (Exa, Brave, Jina, Firecrawl), page read, scholarly search (OpenAlex, Semantic Scholar, CORE, PubMed, ORCID), and registered-but-not-live runtimes. Automatic selection prefers the cheapest suitable live provider per task (`cost_rank`), prompts over the token budget are compacted into a digest before the run (default 12,000 tokens, far below 200k-token context windows), and each output can be owner-reviewed with `--review --status accepted|rejected`.
+
 
 ## Sharable showcase release habit
 

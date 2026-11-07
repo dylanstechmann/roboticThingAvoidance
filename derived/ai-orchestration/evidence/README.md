@@ -11,6 +11,10 @@ Each task normally produces:
 
 The run record never contains API keys or request headers.
 
+When a prompt exceeds the context budget, the harness first writes a digest under `../context/<task-id>.digest.md` and records the digest hash in the run record.
+
+`<task-id>.review.json` sidecars are written only by the owner through the `--review` mode; the agent does not review its own outputs.
+
 Before treating any file here as engineering evidence, the owner must:
 
 1. read it;

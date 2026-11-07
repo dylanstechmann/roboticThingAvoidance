@@ -2,430 +2,499 @@
 
 [Overview]
 
-Add a two-stage, credential-safe AI-assisted finishing workflow to the existing robotics project: first build a local orchestration harness that routes narrowly scoped engineering tasks to the most suitable external AI providers, then use that harness to accelerate the project’s real next milestones—organizer Q&A preparation, mechanical fit review, firmware bring-up planning, and practice-field validation.
+Extend the existing `ai-orchestration` harness so it can route advisory work across every provider family available in the owner’s private key store, while keeping costs and context size under control.
 
 Scope and context:
 
-- The repository is already a fully simulated, evidence-heavy robotics planning project with 43/43 gates on the eight-world branch model.
-- No physical parts have been ordered, no practice field exists, and no organizer Q&A has been posted. The project’s current critical path is therefore physical bring-up, not more simulation.
-- The best next phase is not “call every model on every task.” It is a role-specific routing harness that assigns each task to a small number of well-suited models, records provenance, and keeps the owner in control.
-- The API credentials shown in this chat must be treated as compromised. Before implementation:
-  1. Rotate every pasted key.
-  2. Store new credentials only in private provider consoles or a local secrets file outside the repository.
-  3. Do not copy keys into this plan, source files, logs, screenshots, or terminal transcripts.
-- This plan proposes no embedded secrets, no new mandatory dependencies, and no changes to the eight already-published world branches or `main`.
+- The harness currently supports only OpenAI-compatible chat/review providers and manual provider selection. It works, but it does not yet use the research/search/scholarship keys, it has no cost-aware routing, and it has no owner-review workflow.
+- This plan adds three capabilities:
+  1. **Provider-family expansion** — every key family currently present in `~/.config/ai-keys.env` gets a registry entry. Families with vendored endpoint knowledge become live; families that still need endpoint confirmation are listed as `planned` so they are visible but not automatically selected.
+  2. **Cost-aware task routing** — providers gain a `cost_rank` and family tags. Automatic provider selection prefers the cheapest suitable provider for the task’s `kind`, so expensive models are not used when a cheaper one will do.
+  3. **Automatic context compaction** — when the assembled prompt exceeds a configurable token budget, the harness first summarizes the inputs into a digest using a cheap summarize provider, then runs the real task against the digest instead of the full raw files. This keeps long evidence chains from blowing up context windows or cost.
+- This plan also adds a lightweight **owner-review workflow**: each generated evidence file can be marked `accepted` or `rejected` with notes, recorded in a sidecar JSON file and mirrored into the run record.
+- No new runtime dependencies are introduced. The implementation uses Node’s built-in `fetch`, `fs`, `path`, and `crypto` only. The existing Python MCP tools in `.agent-tools/mcp/` are not modified; their endpoint conventions are ported into the Node CLI.
+
+Constraints carried over from the repository:
+
+- All outputs remain **advisory** and are not owner-reviewed engineering evidence until explicitly marked.
+- No API keys or credential-like strings are committed. The harness reads keys only from the environment or `~/.config/ai-keys.env`.
+- No changes are made to `main` or to the eight published world branches.
+- The pinned simulator and CAD files remain untouched.
 
 [Types]
 
-Use JSON-only data structures so the harness can be audited and diffed.
+All data structures remain JSON-only so they can be audited and diffed.
 
-1. `ProviderSpec`
+1. `ProviderSpec` — extended
+
+   Every provider registry entry gains three new fields: `family`, `cost_rank`, and `max_context_tokens`. Existing fields are unchanged.
 
    ```json
    {
-     "id": "nvidia-robotics",
-     "role": ["robotics", "vision", "policy"],
-     "endpoint": "https://integrate.api.nvidia.com/v1",
-     "model_hint": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
-     "auth_env": "NVIDIA_API_KEY",
-     "transport": "openai-compat",
-     "max_tokens_hint": 4096,
-     "notes": "Use for robot foundation-model reasoning and CAD/field visual review."
+     "id": "moonshot-kimi",
+     "family": "chat",
+     "role": ["summarize", "review"],
+     "endpoint": "https://api.moonshot.ai/v1/chat/completions",
+     "auth_env": "MOONSHOT_API_KEY",
+     "transport": "openai-chat",
+     "model_hint": "moonshot-v1-128k",
+     "cost_rank": 2,
+     "max_context_tokens": 120000,
+     "notes": "Long-context summarization and review."
    }
    ```
 
-   Required fields: `id`, `role`, `endpoint`, `auth_env`, `transport`, `model_hint`.
-   `role` values: `code`, `review`, `vision`, `robotics`, `research`, `literature`, `planning`, `summarize`.
+   Field rules:
 
-2. `TaskRequest`
+   - `id`: lowercase, hyphenated, unique.
+   - `family`: one of `chat`, `web-search`, `web-read`, `scholar`, `runtime`, `planned`.
+   - `role`: array; values include `chat`, `summarize`, `review`, `research`, `search`, `literature`, `vision`, `code`, `planning`, `runtime`.
+   - `endpoint`: `http(s)` URL, or `null` when `transport` is `planned`.
+   - `auth_env`: environment-variable name only, never a value.
+   - `transport`: one of `openai-chat`, `http-json`, `web-search`, `web-read`, `scholar-search`, `runtime`, `planned`.
+   - `model_hint`: string or `null` for search/scholar providers.
+   - `cost_rank`: integer `1`–`5`; ordinal only, not a price. `1` means cheapest known, `5` means most expensive.
+   - `max_context_tokens`: advisory integer used by compaction and routing.
+   - `notes`: short human-readable guidance.
+
+
+   Provider families to add:
+
+   - **Chat / review** — already present: `nvidia-robotics`, `openrouter-general`, `together-general`, `fireworks-general`, `deepinfra-general`, `novita-general`, `baseten-text`, `moonshot-kimi`, `siliconflow-general`, `atlas-general`, `parasail-general`, `llmtr-general`.
+   - **Additional chat** — add `inception-lab` using `INCEPTION_API_KEY`; confirm endpoint/model before marking it live.
+   - **Web search** — add `exa-search` (`EXA_API_KEY`), `brave-search` (`BRAVE_SEARCH_API_KEY`), `brave-answers` (`BRAVE_ANSWERS_API_KEY`), `jina-search` (`JINA_API_KEY`), `firecrawl-search` (`FIRECRAWL_API_KEY`).
+   - **Web read** — add `jina-read` (`JINA_API_KEY`), `firecrawl-scrape` (`FIRECRAWL_API_KEY`).
+   - **Scholar** — add `openalex-search` (`OPENALEX_API_KEY`), `semantic-scholar-search` (`SEMANTIC_SCHOLAR_API_KEY`), `core-search` (`CORE_API_KEY`), `pubmed-search` (`NCBI_API_KEY`), `orcid-record` (`ORCID_CLIENT_ID`/`ORCID_CLIENT_SECRET`).
+   - **Runtime** — register `modal-runtime` using `MODAL_TOKEN_ID`/`MODAL_TOKEN_SECRET` as `transport: planned` until the execution API is confirmed. It is visible in the registry but not automatically selected.
+   - Any other key families found in the private store are added with `transport: planned` rather than invented endpoints.
+
+2. `TaskSpec` — extended
 
    ```json
    {
-     "id": "cad-motor-gap-review",
-     "kind": "vision",
-     "title": "Review the 7.8 mm motor-body gap failure",
+     "id": "rules-update-scan",
+     "kind": "search",
+     "title": "Scan public sources for rule or field updates",
      "input_files": [
-       "docs/mechanical-readiness-v13.md",
-       "derived/cad-v13/fit-results.json"
+       "RULES-AND-SOURCES.md"
      ],
-     "prompt_file": "prompts/cad-motor-gap.md",
-     "preferred_providers": ["nvidia-robotics", "openrouter-general"],
-     "output_name": "cad-motor-gap-review.md",
-     "owner_review": false
+     "prompt_file": "prompts/rules-update-scan.md",
+     "preferred_providers": [
+       "exa-search",
+       "brave-search",
+       "jina-search"
+     ],
+     "output_name": "rules-update-scan.md",
+     "context_policy": {
+       "mode": "auto",
+       "budget_tokens": 12000
+     },
+     "review": false
    }
    ```
 
-   Required fields: `id`, `kind`, `title`, `input_files`, `prompt_file`, `preferred_providers`, `output_name`.
-   `kind` values: `code`, `review`, `vision`, `robotics`, `research`, `literature`, `planning`, `summarize`.
+   Field rules:
 
-3. `RunRecord`
+   - `id`: lowercase, hyphenated, unique.
+   - `kind`: one of `chat`, `summarize`, `review`, `research`, `search`, `literature`, `vision`, `code`, `planning`, `runtime`.
+   - `input_files`: non-empty array of repository-relative paths.
+   - `prompt_file`: repository-relative path to a template under `prompts/`.
+   - `preferred_providers`: ordered array of provider ids used as a preference filter before cost ranking.
+   - `output_name`: filename written under `derived/ai-orchestration/evidence/`.
+   - `context_policy`: optional object with:
+     - `mode`: `auto` (default) or `off`.
+     - `budget_tokens`: integer; if omitted, the CLI `--context-budget` value is used.
+   - `review`: optional boolean; `true` marks the task as requiring explicit owner review before its output is used elsewhere.
+
+
+3. `RunRecord` — extended
 
    ```json
    {
      "task_id": "cad-motor-gap-review",
      "provider_id": "nvidia-robotics",
+     "provider_family": "chat",
+     "cost_rank": 3,
      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
      "started_at": "2026-11-07T12:00:00.000Z",
-     "finished_at": "2026-11-07T12:03:12.000Z",
+     "finished_at": "2026-11-07T12:01:12.000Z",
      "status": "success",
      "prompt_sha256": "…",
      "response_sha256": "…",
      "input_files": [
        {
          "path": "docs/mechanical-readiness-v13.md",
-         "sha256": "…"
+         "sha256": "…",
+         "chars": 1234,
+         "tokens_estimated": 309,
+         "compacted": true
        }
      ],
+     "compaction": {
+       "applied": true,
+       "digest_file": "derived/ai-orchestration/context/cad-motor-gap-review.digest.md",
+       "digest_sha256": "…",
+       "compaction_provider_id": "moonshot-kimi",
+       "reason": "prompt exceeded context budget"
+     },
      "output_path": "derived/ai-orchestration/evidence/cad-motor-gap-review.md",
+     "review": {
+       "status": "pending",
+       "reviewed_at": null,
+       "reviewer": null,
+       "notes": null
+     },
      "notes": "Agent-run; not owner-reviewed."
    }
    ```
 
-   Required fields: `task_id`, `provider_id`, `model`, `started_at`, `finished_at`, `status`, `prompt_sha256`, `response_sha256`, `output_path`.
-   The record must never contain API keys, request headers, or raw credential material.
+4. `ReviewRecord` — new sidecar
 
+   Stored as `<task-id>.review.json` beside the evidence output:
+
+   ```json
+   {
+     "task_id": "cad-motor-gap-review",
+     "output_path": "derived/ai-orchestration/evidence/cad-motor-gap-review.md",
+     "status": "accepted",
+     "reviewer": "owner",
+     "reviewed_at": "2026-11-07T12:05:00.000Z",
+     "notes": "Accepted for planning only; fabrication decision still requires bench measurement.",
+     "run_sha256": "…",
+     "output_sha256": "…"
+   }
+   ```
+
+   `status` is one of `accepted`, `rejected`, `pending`.
+
+5. `ContextPolicy`
+
+   ```json
+   {
+     "mode": "auto",
+     "budget_tokens": 12000
+   }
+   ```
+
+   - `auto` means compaction runs whenever the estimated prompt size exceeds `budget_tokens`.
+   - `off` disables compaction for that task.
 
 [Files]
 
 New files:
 
-- `/workspace/roboticThingAvoidance/tools/ai-orchestrate.js`
-  - Node 24 CLI using only built-in `fs`, `path`, `crypto`, and global `fetch`.
-  - Loads a provider registry, task manifest, and prompt files.
-  - Selects a provider, runs one task, and writes an auditable evidence record.
-  - Supports `--dry-run`, `--task`, `--provider`, `--manifest`, `--registry`, and `--help`.
+- `prompts/context-compaction.md` — instructions used when summarizing large inputs into a digest.
+- `prompts/rules-update-scan.md` — web-search prompt for rule or field updates.
+- `prompts/vendor-cad-research.md` — web-search/read prompt for vendor CAD and part references.
+- `prompts/literature-search.md` — scholar-search prompt for academic or standards references.
+- `prompts/web-page-read.md` — page-read prompt used with `jina-read` / `firecrawl-scrape`.
+- `derived/ai-orchestration/context/` — directory holding generated digests. Each digest is named `<task-id>.digest.md`.
+- `tests/ai-orchestration-provider.test.js` — tests for the expanded registry, cost ranking, compaction, and review workflow.
+- `derived/ai-orchestration/evidence/<task-id>.review.json` — per-task review sidecars (generated at review time).
 
-- `/workspace/roboticThingAvoidance/docs/ai-orchestration.md`
-  - Owner-facing usage guide.
-  - Explains provider routing, role assignments, evidence logging, credential handling, and the fact that every output is advisory until owner-reviewed.
-
-- `/workspace/roboticThingAvoidance/prompts/`
-  - Reusable prompt templates:
-    - `organizer-qa-draft.md`
-    - `cad-fit-review.md`
-    - `firmware-bringup-checklist.md`
-    - `practice-field-plan.md`
-    - `rules-interpretation.md`
-
-- `/workspace/roboticThingAvoidance/derived/ai-orchestration/registry.json`
-  - Provider registry. Contains environment-variable names only, never secrets.
-
-- `/workspace/roboticThingAvoidance/derived/ai-orchestration/tasks.json`
-  - Initial task manifest for the next physical phase.
-
-- `/workspace/roboticThingAvoidance/derived/ai-orchestration/evidence/README.md`
-  - States that evidence files are AI-generated advisory artifacts and require owner review before being treated as engineering results.
-
-- `/workspace/roboticThingAvoidance/tests/ai-orchestrate.test.js`
-  - Unit tests for registry parsing, task routing, dry-run output, evidence hashing, and secret-free behavior.
 
 Modified files:
 
-- `/workspace/roboticThingAvoidance/package.json`
-  - Add `"ai:orchestrate": "node tools/ai-orchestrate.js"` to `scripts`.
-  - Do not add runtime dependencies.
+- `tools/ai-orchestrate.js`
+  - Add token estimation and automatic compaction.
+  - Add cost-aware provider selection.
+  - Add provider-family dispatch beyond OpenAI-compatible chat.
+  - Add the review subcommand and sidecar writing.
+  - Extend `parseArgs` with the new flags.
+- `derived/ai-orchestration/registry.json`
+  - Add `family`, `cost_rank`, and `max_context_tokens` to every provider.
+  - Add the new provider families listed above.
+- `derived/ai-orchestration/tasks.json`
+  - Add `context_policy` where useful.
+  - Add new tasks that exercise search, scholar, and compaction routes.
+- `prompts/organizer-qa-draft.md`, `prompts/cad-fit-review.md`, `prompts/firmware-bringup-checklist.md`, `prompts/practice-field-plan.md`, `prompts/rules-interpretation.md`
+  - No structural change required; they remain advisory.
+- `docs/ai-orchestration.md`
+  - Document provider families, cost ranking, automatic compaction, and the review workflow.
+- `README.md`
+  - Update the one-paragraph AI-assisted workflow summary.
+- `SESSION-STATE-2026-11-07.md`
+  - Add a short note recording the expanded harness scope.
+- `implementation_plan.md`
+  - Replaced by this document.
 
-- `/workspace/roboticThingAvoidance/README.md`
-  - Add a short “AI orchestration” section linking to `docs/ai-orchestration.md`.
-  - State that AI-generated advisories are labeled and are not owner-validated work.
+Files not modified:
 
-- `/workspace/roboticThingAvoidance/SESSION-STATE-2026-11-07.md`
-  - Add the next-phase scope: credential rotation, orchestration harness, then AI-assisted physical bring-up.
-  - Record that the pasted keys are compromised and must be rotated.
-
-Files not to modify:
-
-- `software/stockcar/mission.py`
-- `software/stockcar/routes.py`
-- `software/stockcar/field.py`
-- `software/stockcar/obstacles.py`
-- `software/stockcar/supervisor.py`
-- `software/stockcar/lapmodel.py`
-- `software/stockcar/passage.py`
-- `software/stockcar/geometry.py`
-- `software/stockcar/sensors.py`
-- `software/stockcar/sensors_camera.py`
-- `software/stockcar/estimator.py`
-- `derived/organizer-cad-v10/field-v10.json`
-- Existing eight-world branch seal artifacts.
-- `main`
+- `.agent-tools/mcp/web_mcp.py`
+- `.agent-tools/mcp/scholar_mcp.py`
+- `.agent-tools/mcp/agentkeys.py`
+- Any pinned simulator or CAD file.
+- Any of the eight published world branches.
+- `main`.
 
 [Functions]
 
 New functions in `tools/ai-orchestrate.js`:
 
-1. `parseArgs(argv)`
-   - Signature: `parseArgs(argv) -> object`
-   - Parses `--task`, `--provider`, `--registry`, `--manifest`, `--dry-run`, and `--help`.
-   - Fails fast with a readable usage message.
+1. `estimateTokens(text) -> number`
+   - Approximate token count from character length (`Math.ceil(text.length / 4)`).
+   - Used only as a budget heuristic; no tokenizer dependency is added.
 
-2. `loadProviderRegistry(path)`
-   - Signature: `loadProviderRegistry(path) -> ProviderSpec[]`
-   - Reads `registry.json`.
-   - Validates required fields and unique provider IDs.
-   - Rejects any file containing literal credential prefixes such as `sk-or-v1-`, `tgp_v1_`, `nvapi-`, or `jina_`.
+2. `needsCompaction(prompt, budgetTokens) -> boolean`
+   - Returns `true` when `estimateTokens(prompt) > budgetTokens`.
 
-3. `loadTaskManifest(path)`
-   - Signature: `loadTaskManifest(path) -> TaskRequest[]`
-   - Reads `tasks.json`.
-   - Validates that every referenced input and prompt file exists.
-   - Rejects duplicate task IDs.
+3. `compactInputs(task, provider, options) -> { digest, digestPath, digestSha256, applied }`
+   - Reads the task’s input files.
+   - Builds a compaction prompt using `prompts/context-compaction.md`.
+   - Calls the cheapest available `summarize` provider (or a deterministic local digest in dry-run).
+   - Writes the digest to `derived/ai-orchestration/context/<task-id>.digest.md`.
+   - Returns the digest path and hash so the run record can reference it.
 
-3. `loadSecretsFile(file)`
-   - Signature: `loadSecretsFile(file = ~/.config/ai-keys.env) -> {path, loaded}`
-   - Loads provider credentials from a private file outside the repository.
-   - Sets them into `process.env` only if they are not already present.
-   - Returns the path and number of keys loaded.
-   - Refuses to read a secrets file located inside the repository.
+4. `callWebSearch(provider, query, options) -> string`
+   - Implements the `web-search` transport using the provider’s endpoint and auth header.
+   - Returns markdown-formatted results.
+   - The endpoint conventions mirror those already used by `.agent-tools/mcp/web_mcp.py`.
 
-4. `selectProvider(task, providers)`
-   - Signature: `selectProvider(task, providers) -> ProviderSpec`
-   - Prefers an intersection of `task.preferred_providers` and provider `role`.
-   - Falls back to the first provider matching `task.kind`.
-   - Returns a deterministic selection for reproducible dry-runs.
+5. `callWebRead(provider, url, options) -> string`
+   - Implements the `web-read` transport for `jina-read` and `firecrawl-scrape`.
+   - Returns markdown text clipped to the configured limit.
 
-5. `buildPrompt(task, provider)`
-   - Signature: `buildPrompt(task, provider) -> string`
-   - Loads `task.prompt_file`.
-   - Appends the full text of each input file with its path and SHA-256 hash.
-   - Includes an explicit instruction: “Do not claim owner review or physical validation.”
+6. `callScholarSearch(provider, query, options) -> string`
+   - Implements the `scholar-search` transport for OpenAlex, Semantic Scholar, CORE, PubMed, and ORCID.
+   - Returns a structured markdown list with identifiers and links.
+   - The endpoint conventions mirror `.agent-tools/mcp/scholar_mcp.py`.
 
-6. `hashText(text)`
-   - Signature: `hashText(text) -> string`
-   - SHA-256 helper for prompts and responses.
 
-7. `runTask(task, provider, options)`
-   - Signature: `async runTask(task, provider, options) -> RunRecord`
-   - In `--dry-run`, writes a deterministic stub response without network access.
-   - In live mode, calls the provider endpoint using `fetch`.
-   - Writes the response to `derived/ai-orchestration/evidence/<task.output_name>`.
-   - Writes `RunRecord` metadata beside it.
+7. `callRuntime(provider, task, options) -> string`
+   - Placeholder for the `runtime` transport.
+   - Initially returns a clear “not implemented” message.
+   - Exists so future Modal/container work can be added without changing the dispatcher.
 
-8. `writeRunRecord(record)`
-   - Signature: `writeRunRecord(record) -> void`
-   - Serializes the run record as JSON.
-   - Never writes API keys, headers, or request bodies containing credentials.
+8. `dispatchProvider(provider, task, options) -> string`
+   - Chooses the correct adapter based on `provider.transport`.
+   - Supported transports: `openai-chat`, `web-search`, `web-read`, `scholar-search`.
+   - `planned` and `runtime` raise a clear error instead of silently calling a wrong endpoint.
 
-9. `printSummary(records)`
-   - Signature: `printSummary(records) -> void`
-   - Prints task, provider, status, output path, and advisory status.
+9. `writeReviewRecord(task, runRecord, review) -> void`
+   - Writes `derived/ai-orchestration/evidence/<task-id>.review.json`.
+   - Updates the matching run record’s `review` field.
 
-Removed functions: none.
-Modified functions: none in existing files.
+Modified functions:
 
+1. `validateProvider(provider)`
+   - Require `family`, `cost_rank`, and `max_context_tokens`.
+   - Validate `cost_rank` is an integer between `1` and `5`.
+   - Validate `transport` is one of the supported values.
+   - Allow `endpoint: null` only when `transport` is `planned`.
+
+2. `validateTask(task)`
+   - Accept optional `context_policy` and `review` fields.
+   - Validate `context_policy.mode` is `auto` or `off`.
+   - Validate `context_policy.budget_tokens` is a positive integer when present.
+
+3. `selectProvider(task, providers)`
+   - Keep the existing preferred-provider filter.
+   - Sort matching providers by `cost_rank` ascending.
+   - If two providers share a `cost_rank`, preserve the original registry order.
+   - Prefer a provider whose `family` matches the task `kind` when both exist.
+
+4. `buildPrompt(task, provider, options)`
+   - Accept an optional `compaction` object.
+   - When compaction is applied, include the digest and the original file hashes, but not the full file contents.
+   - When compaction is not applied, keep the current full-content behavior.
+
+5. `runTask(task, provider, options)`
+   - Estimate the prompt size before calling the provider.
+   - When the budget is exceeded and `context_policy.mode` is `auto`, run compaction first.
+   - Record compaction metadata in the run record.
+   - Record `provider_family` and `cost_rank` in the run record.
+   - Initialize `review.status` to `pending`.
+   - On live search/scholar providers, use the new dispatch functions instead of the chat adapter.
+
+6. `parseArgs(argv)`
+   - Add `--context-budget <n>` (default `12000`).
+   - Add `--no-compact` to disable compaction for a single run.
+   - Add `--review` with `--task <id>`, `--status accepted|rejected`, and `--notes "…"`.
+   - Allow `--review` without `--dry-run` or `--live`.
+
+7. `printSummary(records)`
+   - Show `provider_family`, `cost_rank`, and compaction status in the one-line summary.
+   - Show `review: accepted|rejected|pending`.
+
+8. `main()`
+   - Handle the `--review` subcommand before provider execution.
+   - Otherwise keep the existing dry-run/live behavior.
+
+9. `loadProviderRegistry(file)` / `loadTaskManifest(file)`
+   - Validate the new fields described above.
+
+Removed functions:
+
+- None. No existing function is deleted.
 
 [Classes]
 
-No new classes are required. The harness should remain procedural, matching the existing `tools/*.js` style.
+No new public classes are required. The harness stays function-based, matching the existing style.
 
-If a future refactor needs an abstraction, introduce:
+Internal adapter classes (implementation detail only):
 
-- `class AIOrchestrator`
-  - Constructor: `constructor({registry, manifest, options})`
-  - Methods:
-    - `async run(taskId)`
-    - `selectProvider(task)`
-    - `writeEvidence(record)`
-    - `summary()`
+1. `ProviderAdapter` — new, `tools/ai-orchestrate.js`
+   - Methods: `constructor(provider)`, `supports(task)`, `run(task, options)`.
+   - Base class for the transport dispatchers.
 
-- `class ProviderAdapter`
-  - Methods:
-    - `async send(prompt, providerSpec)`
-    - `name`
-  - Subclasses:
-    - `OpenAICompatAdapter`
-    - `DryRunAdapter`
+2. `OpenAIChatAdapter extends ProviderAdapter`
+   - Wraps the existing OpenAI-compatible chat path.
 
-This class layer is optional and should only be added if `tools/ai-orchestrate.js` grows beyond one file.
+3. `WebSearchAdapter extends ProviderAdapter`
+   - Wraps `callWebSearch`.
+
+4. `WebReadAdapter extends ProviderAdapter`
+   - Wraps `callWebRead`.
+
+5. `ScholarSearchAdapter extends ProviderAdapter`
+   - Wraps `callScholarSearch`.
+
+6. `RuntimeAdapter extends ProviderAdapter`
+   - Placeholder for future container/runtime providers.
+   - Initially returns a clear “planned, not live” message.
+
+7. `CompactionAdapter`
+   - Wraps `compactInputs`.
+   - Selects the cheapest available `summarize` provider.
+
+8. `ReviewStore`
+   - Wraps `writeReviewRecord`.
+   - Reads and writes the sidecar JSON.
+   - Mirrors review state into the run record.
+
+These classes are private to `tools/ai-orchestrate.js` and are not exported unless a later refactor splits the file.
+
 
 [Dependencies]
 
-No new runtime dependencies.
+No new npm or pip dependencies are introduced.
 
-Use only:
+- Node built-ins used: `fs`, `path`, `crypto`, `os`, `fetch`.
+- The vendored Python MCP tools remain unchanged.
+- No tokenizer package is added; token counting is approximate.
+- No new external service is required by `node tools/check-all.js`.
 
-- Node 24 built-ins
-- Global `fetch`
-- Existing repository test harness (`node --test`)
-- Existing Python/uv tools if a helper script is needed later
-
-External integration requirements:
-
-1. Provider credentials
-   - Read only from environment variables named in `registry.json`, such as:
-     - `OPENROUTER_API_KEY`
-     - `NVIDIA_API_KEY`
-     - `TOGETHER_API_KEY`
-     - `FIREWORKS_API_KEY`
-     - `DEEPINFRA_API_KEY`
-     - `NOVITA_API_KEY`
-     - `BASTEN_API_KEY`
-     - `MOONSHOT_API_KEY`
-     - `SILICONFLOW_API_KEY`
-     - `ATLAS_CLOUD_API_KEY`
-     - `PARASAIL_API_KEY`
-     - `LLMTR_API_KEY`
-     - `INCEPTION_API_KEY`
-   - Never write the values to disk in this repository.
-
-2. Recommended provider roles
-
-   - Robotics / vision / control
-     - NVIDIA NIM-style endpoints for robotics and VLM models, including candidate families such as:
-       - GR00T N1.5 / Isaac-style robot foundation models
-       - VILA-style vision-language models
-       - Cosmos-style world-model or simulation reasoning, if exposed
-     - Use for CAD fit review, field-image reasoning, mechanism sanity checks, and robot-policy discussion.
-
-   - General reasoning and code review
-     - OpenRouter, Together, Fireworks, Novita, DeepInfra, Baseten, Moonshot, SiliconFlow, Atlas Cloud, Parasail, LLMtr, Inception
-     - Use for:
-       - rules interpretation
-       - test-plan drafting
-       - firmware bring-up checklists
-       - documentation summaries
-       - code review of non-pinned files
-
-   - Web research
-     - Exa, Brave, Jina, Firecrawl
-     - Use for:
-       - organizer manual updates
-       - part availability
-       - competition deadline checks
-       - rules-history research
-
-   - Literature and evidence
-     - OpenAlex, Semantic Scholar, Core, ORCID
-     - Use only if a specific engineering question needs a cited source.
-
-3. Credential policy
-   - Rotate every key pasted in this conversation before any live call.
-   - Store new credentials in provider consoles or `~/.config/ai-keys.env` with mode `600`.
-   - Never paste them into the repository, prompts, or generated artifacts.
-   - `secrets-guard` must scan:
-     - `registry.json`
-     - `tasks.json`
-     - prompt files
-     - evidence outputs
-     - tests
-
+If a provider family later requires a real SDK, it is added as an explicit follow-up task, not silently in this change.
 
 [Testing]
 
-1. Unit tests (`tests/ai-orchestrate.test.js`)
+1. Existing tests stay green
 
-   - `parseArgs` accepts documented flags and rejects unknown flags.
-   - `loadProviderRegistry` validates required fields and rejects duplicate IDs.
-   - `loadTaskManifest` rejects missing prompt/input files.
-   - `selectProvider` prefers an explicit provider, then role match, then deterministic fallback.
-   - `buildPrompt` includes the advisory label and input hashes.
-   - `runTask --dry-run` creates evidence and a run record without network access.
-   - `loadSecretsFile` loads a private credentials file and rejects paths inside the repository.
-   - `writeRunRecord` never includes credential-like strings.
-   - Generated evidence files are deterministic in dry-run mode.
+   - `tests/ai-orchestrate.test.js` continues to pass.
+   - No existing test is deleted.
 
-2. Secret-safety tests
+2. New unit tests in `tests/ai-orchestration-provider.test.js`
 
-   Add a test that scans all new AI-orchestration files for common credential prefixes:
+   - Registry validation
+     - Every provider has `family`, `cost_rank`, and `max_context_tokens`.
+     - `cost_rank` is an integer between `1` and `5`.
+     - `transport` is recognized.
+     - `planned` providers may have `endpoint: null`.
+     - Provider ids remain unique.
 
-   - `sk-or-v1-`
-   - `tgp_v1_`
-   - `nvapi-`
-   - `jina_`
-   - `fw_`
-   - `psk-`
-   - `nck_live_`
-   - `fc-`
-   - `omtx_`
-   - `jf_live_`
+   - Cost-aware routing
+     - Given two providers with the same role, the lower `cost_rank` is selected.
+     - Preferred-provider order still wins over raw registry order when both match the task kind.
+     - A provider with a mismatched family is not selected for a task that requires a specific family.
 
-   The test must fail if any literal credential appears.
+   - Context compaction
+     - A short prompt does not trigger compaction.
+     - A prompt over the configured budget triggers compaction.
+     - The digest file is written under `derived/ai-orchestration/context/`.
+     - The run record records `compaction.applied`, `digest_file`, and `digest_sha256`.
+     - `--no-compact` disables compaction even when the budget is exceeded.
+     - Dry-run mode produces a deterministic digest without network access.
 
-3. Integration tests
+   - Review workflow
+     - `--review --task <id> --status accepted --notes "…"` writes `<task-id>.review.json`.
+     - The run record’s `review.status` becomes `accepted`.
+     - `--status rejected` writes `rejected`.
+     - Missing `--status` fails with a clear error.
+     - Reviewing an unknown task fails with a clear error.
 
-   - No live provider calls in the default test suite.
-   - Optional integration tests are gated behind an explicit environment variable, for example:
-     - `AI_ORCHESTRATION_LIVE=1`
-   - Even in live mode, tests must use one low-cost provider and one prompt.
-   - Integration tests must be disabled unless the owner explicitly enables them.
+   - Provider dispatch
+     - `web-search` tasks route to `callWebSearch`.
+     - `scholar-search` tasks route to `callScholarSearch`.
+     - `planned` transports fail with a clear “not implemented” message.
+     - No live network call is made by default; tests stub `fetch`.
 
-4. Repository gate
+3. Integration strategy
 
-   - Add `tests/ai-orchestrate.test.js` to the existing Node test discovery pattern.
-   - Do not add external network calls to `node tools/check-all.js` by default.
-   - Optional full mode may later include:
-     - `node --test tests/ai-orchestrate.test.js`
-   - `secrets-guard --worktree` must pass before any commit or push.
+   - Default `npm test` and `node tools/check-all.js` make **no** external network calls.
+   - Live provider smoke tests remain opt-in:
+     - one chat provider,
+     - one search provider,
+     - one scholar provider.
+   - Live tests are not part of `check-all`.
+
+4. Validation gates
+
+   - `node --check tools/ai-orchestrate.js`
+   - `node --test tests/ai-orchestrate.test.js tests/ai-orchestration-provider.test.js`
+   - `node tools/check-all.js`
+   - `python .claude/skills/secrets-guard/scripts/scan_secrets.py <changed-files>`
+
 
 [Implementation Order]
 
-1. Credential hygiene first
-   - Rotate every key pasted in this conversation.
-   - Store new credentials outside the repository.
-   - Confirm `.gitignore` covers local secret files.
-   - Do not proceed with live provider calls until this is done.
+1. Extend the provider registry schema
+   - Add `family`, `cost_rank`, and `max_context_tokens` to every existing provider.
+   - Add the new chat, web-search, web-read, scholar, and planned runtime providers.
+   - Keep endpoint values only where the API is already known; mark the rest `planned`.
 
-2. Design the provider registry
-   - Create `derived/ai-orchestration/registry.json`.
-   - Include only environment-variable names, not values.
-   - Populate with the recommended role mapping above.
+2. Extend the task manifest and prompts
+   - Add `context_policy` to tasks that can grow large.
+   - Add the new search/scholar/compaction prompt templates.
+   - Add at least one task per new provider family so each route is exercised.
 
-3. Create task manifest and prompts
-   - Create `derived/ai-orchestration/tasks.json`.
-   - Add the first five high-value tasks:
-     1. Organizer Q&A draft from `derived/qa-pack-v10/QUESTIONS.md`.
-     2. Mechanical fit review of the 7.8 mm motor-body gap failure.
-     3. Firmware bring-up checklist for the Pico 2 stack.
-     4. Practice-field build and measurement plan.
-     5. Rules-interpretation cross-check of V3.0/V3.1 open questions.
-   - Add one prompt file per task under `prompts/`.
+3. Implement token estimation and automatic compaction
+   - Add `estimateTokens`, `needsCompaction`, and `compactInputs`.
+   - Wire compaction into `buildPrompt` and `runTask`.
+   - Write digests under `derived/ai-orchestration/context/`.
+   - Record compaction metadata in the run record.
 
-4. Implement `tools/ai-orchestrate.js`
-   - Start with dry-run mode only.
-   - Add registry loading, task loading, provider selection, prompt building, evidence writing, and summary printing.
-   - Keep the CLI small and auditable.
+4. Implement cost-aware provider selection
+   - Sort matching providers by `cost_rank`.
+   - Keep preferred-provider ordering as a first-stage filter.
+   - Prefer family-specific providers for search and scholar tasks.
 
-5. Add provider adapters
-   - Implement `OpenAICompatAdapter` for providers that expose OpenAI-compatible endpoints.
-   - Add a `DryRunAdapter` for tests.
-   - Add provider-specific adapters only when necessary.
-   - Never log request headers or credentials.
+5. Implement the provider dispatch layer
+   - Add `callWebSearch`, `callWebRead`, and `callScholarSearch`.
+   - Add the `dispatchProvider` function.
+   - Add the `RuntimeAdapter` placeholder.
+   - Keep `planned` transports out of automatic selection.
 
-6. Add tests
-   - Create `tests/ai-orchestrate.test.js`.
-   - Cover parsing, routing, dry-run execution, hashing, and secret scanning.
-   - Ensure `node --test` passes.
+6. Implement the review workflow
+   - Add `writeReviewRecord` and the `ReviewStore` helper.
+   - Add the `--review` CLI mode.
+   - Write sidecar JSON files beside each evidence output.
+   - Mirror review status into the run record.
 
-7. Update documentation
-   - Add `docs/ai-orchestration.md`.
-   - Update `README.md` with a short AI-assisted finishing workflow section.
-   - Update `SESSION-STATE-2026-11-07.md` with the new phase and credential-rotation requirement.
+7. Update the CLI surface
+   - Add `--context-budget`, `--no-compact`, and `--review`.
+   - Keep `--dry-run` and `--live` behavior unchanged for existing tasks.
+   - Update `--help` text.
 
-8. Validate
-   - Run:
-     - `node --test tests/ai-orchestrate.test.js`
-     - `node tools/check-all.js`
-     - `secrets-guard --worktree`
-   - Confirm no existing branch tip changes.
+8. Update documentation
+   - `docs/ai-orchestration.md`: provider families, cost ranking, compaction, review workflow.
+   - `README.md`: one short updated paragraph.
+   - `SESSION-STATE-2026-11-07.md`: note the expanded scope.
 
-9. Use the harness for the next physical milestone
-   - Run the first five tasks in dry-run mode.
-   - Review outputs manually.
-   - Use the best outputs to prepare:
-     - organizer Q&A submission drafts
-     - mechanical fit-risk register
-     - firmware bring-up checklist
-     - practice-field build plan
-   - Do not treat any AI-generated output as owner-reviewed engineering evidence until the owner explicitly marks it reviewed.
+9. Extend the tests
+   - Add `tests/ai-orchestration-provider.test.js`.
+   - Cover registry validation, cost ranking, compaction, review, and dispatch.
+   - Keep all tests offline by stubbing `fetch`.
 
-10. Proceed to hardware bring-up
-    - Once the harness and first advisory outputs are accepted, the project’s next real milestone is physical:
-      - post organizer Q&A
-      - order parts
-      - build the practice field
-      - assemble the mule
-      - run bench characterization
-      - begin firmware bring-up
-    - The AI orchestration harness should support those steps, not replace owner review or physical testing.
+10. Validate
+   - `node --check tools/ai-orchestrate.js`
+   - `node --test tests/ai-orchestrate.test.js tests/ai-orchestration-provider.test.js`
+   - `node tools/check-all.js`
+   - Secrets scan on every changed file.
+   - Confirm the eight world branches and `main` are untouched.
+
+11. Optional follow-up (not part of this change)
+   - Enable live search and scholar smoke tests.
+   - Add a Modal runtime adapter if container execution becomes useful.
+   - Split `tools/ai-orchestrate.js` into `tools/ai-orchestration/` modules once the file exceeds a comfortable size.
 
 **Do not begin implementation until the owner explicitly approves this plan.**

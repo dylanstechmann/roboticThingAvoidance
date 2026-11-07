@@ -1,0 +1,34 @@
+{
+  "task_id": "vendor-page-read",
+  "provider_id": "jina-read",
+  "provider_family": "web-read",
+  "cost_rank": 1,
+  "model": null,
+  "started_at": "2026-11-07T17:21:09.165Z",
+  "finished_at": "2026-11-07T17:21:09.169Z",
+  "status": "success",
+  "prompt_sha256": "4825f9c90efd98574e66686e07218fa7b3f61734a70ac814c79dd4cff75fe5a0",
+  "response_sha256": "bafcc7c3b0da008c6940a3de4e22309e624d629cc902df6592c73629b6a92b9d",
+  "input_files": [
+    {
+      "path": "docs/mechanical-readiness-v13.md",
+      "sha256": "5e3cce58c7611a44c1042099d474629cbebebe72d24b68dd6bde5acfb961ad50",
+      "chars": 6704,
+      "tokens_estimated": 1676,
+      "compacted": false
+    }
+  ],
+  "compaction": {
+    "applied": false
+  },
+  "output_path": "derived/ai-orchestration/evidence/vendor-page-read.md",
+  "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null,
+    "run_sha256": "a0916aab2a83ac16583a13753b9eb16796936284def4eb89d764abab81d874c9",
+    "output_sha256": "bafcc7c3b0da008c6940a3de4e22309e624d629cc902df6592c73629b6a92b9d"
+  },
+  "notes": "Agent-run; not owner-reviewed."
+}

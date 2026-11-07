@@ -1,0 +1,34 @@
+{
+  "task_id": "literature-search",
+  "provider_id": "openalex-search",
+  "provider_family": "scholar",
+  "cost_rank": 1,
+  "model": null,
+  "started_at": "2026-11-07T17:21:09.087Z",
+  "finished_at": "2026-11-07T17:21:09.093Z",
+  "status": "success",
+  "prompt_sha256": "f4d58bef8d9c135b40ea82e974dfae7ed6268904db0ba1cb322cce2fdec1c2b0",
+  "response_sha256": "9526b390aca4517eb64f6e8b41842a3c88d6e9502c119ddbbfbdb26ccf00fc04",
+  "input_files": [
+    {
+      "path": "RULES-AND-SOURCES.md",
+      "sha256": "3638e194da4560acff83dbeb4a7dd48192a0b116586317b24202ca3f4fabf442",
+      "chars": 9696,
+      "tokens_estimated": 2424,
+      "compacted": false
+    }
+  ],
+  "compaction": {
+    "applied": false
+  },
+  "output_path": "derived/ai-orchestration/evidence/literature-search.md",
+  "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null,
+    "run_sha256": "76de493747266f61b81ea7e366e69f22ee2a28fea450f5814fef1495a70e6507",
+    "output_sha256": "9526b390aca4517eb64f6e8b41842a3c88d6e9502c119ddbbfbdb26ccf00fc04"
+  },
+  "notes": "Agent-run; not owner-reviewed."
+}

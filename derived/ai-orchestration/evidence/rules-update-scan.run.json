@@ -1,0 +1,34 @@
+{
+  "task_id": "rules-update-scan",
+  "provider_id": "exa-search",
+  "provider_family": "web-search",
+  "cost_rank": 2,
+  "model": null,
+  "started_at": "2026-11-07T17:21:08.927Z",
+  "finished_at": "2026-11-07T17:21:08.934Z",
+  "status": "success",
+  "prompt_sha256": "81267d58d64f501ada7a474b077e5bf0e8cd7ae79c40091b30a9b653d75a1949",
+  "response_sha256": "e55970a5b4ded526ba7e57370071c6b34a517e6a89c1b98f61cfeaa9dd1046c3",
+  "input_files": [
+    {
+      "path": "RULES-AND-SOURCES.md",
+      "sha256": "3638e194da4560acff83dbeb4a7dd48192a0b116586317b24202ca3f4fabf442",
+      "chars": 9696,
+      "tokens_estimated": 2424,
+      "compacted": false
+    }
+  ],
+  "compaction": {
+    "applied": false
+  },
+  "output_path": "derived/ai-orchestration/evidence/rules-update-scan.md",
+  "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null,
+    "run_sha256": "ed1798177b193ab5284d90711e6a670686aa2c16f697c20cd1349337f200f401",
+    "output_sha256": "e55970a5b4ded526ba7e57370071c6b34a517e6a89c1b98f61cfeaa9dd1046c3"
+  },
+  "notes": "Agent-run; not owner-reviewed."
+}
