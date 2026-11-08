@@ -26,7 +26,7 @@ Everything generated here is agent-run and advisory. It is not owner-reviewed en
 | Family | Providers | Transport | Live? |
 |---|---|---|---|
 | chat | nvidia-robotics, openrouter-general, together-general, fireworks-general, deepinfra-general, novita-general, baseten-text, moonshot-kimi, siliconflow-general, atlas-general, parasail-general, llmtr-general | openai-compat | yes (confirm models marked placeholder before live use) |
-| chat (planned) | inception-lab, omtx-general, japanfold-general | planned | no — endpoints unconfirmed |
+| chat (planned) | inception-lab, omtx-general | planned | no — endpoints unconfirmed |
 | web-search | exa-search, brave-search, brave-answers, jina-search, firecrawl-search | web-search | yes |
 | web-read | jina-read, firecrawl-scrape | web-read | yes |
 | scholar | openalex-search, semantic-scholar-search, core-search, pubmed-search, orcid-record | scholar-search | yes |

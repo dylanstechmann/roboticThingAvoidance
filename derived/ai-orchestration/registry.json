@@ -182,19 +182,6 @@
     "notes": "Endpoint and model unconfirmed; registered as planned."
   },
   {
-    "id": "japanfold-general",
-    "family": "chat",
-    "role": ["review", "summarize"],
-    "endpoint": null,
-    "auth_env": "JAPANFOLD_API_KEY",
-    "transport": "planned",
-    "model_hint": null,
-    "max_tokens_hint": null,
-    "cost_rank": 3,
-    "max_context_tokens": 32768,
-    "notes": "Endpoint and model unconfirmed; registered as planned."
-  },
-  {
     "id": "exa-search",
     "family": "web-search",
     "role": ["search", "research"],
