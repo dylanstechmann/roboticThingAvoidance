@@ -18,7 +18,7 @@ def _rings(points):
     return [[round(p[0], 4), round(p[1], 4)] for p in points]
 
 
-def main():
+def render_tables():
     field = Field()
     band = Band(field)
     lines = [
@@ -40,8 +40,12 @@ def main():
         "BAND_INNER = %r" % _rings(band.inner),
         "",
     ]
+    return "\n".join(lines)
+
+
+def main():
     out = ROOT / "firmware" / "pico2" / "field_tables.py"
-    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    out.write_text(render_tables() + "\n", encoding="utf-8")
     print(f"wrote {out.relative_to(ROOT)}")
 
 

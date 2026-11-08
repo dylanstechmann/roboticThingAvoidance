@@ -25,7 +25,7 @@
 | `tools/` | `build-showcase-v13.js` | Project utility: build showcase v13. | `tests/showcase-v13.test.js` | — |
 | `tools/` | `build-stopping-dynamics-v6.js` | Project utility: build stopping dynamics v6. | `tools/verify-stopping-dynamics-v6.js`<br>`tests/stopping-dynamics-v6-source-audit.test.js`<br>`tests/stopping-dynamics-v6.test.js` | — |
 | `tools/` | `build-team-brief-page-v7.py` | Build the shareable HTML page for derived/team-brief-v7/TEAM-BRIEF.md. | GAP | No direct test or same-study verifier found in the audited test suites. |
-| `tools/` | `build_field_tables.py` | Generate firmware/pico2/field_tables.py — the board's static map (barrier polygons and the marking | GAP | No direct test or same-study verifier found in the audited test suites. |
+| `tools/` | `build_field_tables.py` | Generate firmware/pico2/field_tables.py — the board's static map (barrier polygons and the marking | `software/stockcar/tests/test_build_field_tables.py` | — |
 | `tools/` | `build_pico_bundle.py` | Builds the folder to copy onto the Pico 2: firmware, the shared logic files and packed route tables. | `firmware/host_tests/test_estimator_in_mission.py`<br>`firmware/host_tests/test_mission_driver.py` | — |
 | `tools/` | `check-all.js` | One-command project check: the Node test suite, every tools/verify-*.js artifact verifier, the Python suites, and a working-tree cleanliness check. | `tests/history-v10.test.js` | — |
 | `tools/` | `check-fit-v13.py` | Evaluate nominal interfaces and sampled exact-solid v13 gate travel. | `tools/verify-cad-v13.py` | — |
@@ -70,7 +70,7 @@
 | `tools/` | `f3d-reader.js` | Read-only access to Autodesk Fusion .f3d archives and their ASM ("ACIS binary") B-rep blobs. The archives are untrusted input: members are decompressed in memory with size limits, names are | `tests/organizer-cad-v10.test.js` | — |
 | `tools/` | `hardware-development-v3.js` | Project utility: hardware development v3. | `tests/hardware-development-v3.test.js`<br>`tests/order-a-procurement-v4.test.js` | — |
 | `tools/` | `input-supersession.js` | Input-hash checking with dated supersession records. A sealed report lists the SHA-256 of each input at sealing time. A supersession record may accept one documented later edit of a specific input, but | `tests/input-supersession.test.js` | — |
-| `tools/` | `inspect-tire-stl.js` | Intersect binary STL triangles with planes normal to Y; coordinates remain in STL units. | GAP | No direct test or same-study verifier found in the audited test suites. |
+| `tools/` | `inspect-tire-stl.js` | Intersect binary STL triangles with planes normal to Y; coordinates remain in STL units. | `tests/inspect-tire-stl.test.js` | — |
 | `tools/` | `lap-study-v10.py` | Lap study v10: contact-free laps, lap and mission times, and expected score over random layouts. | `tests/lap-study-v10.test.js` | — |
 | `tools/` | `mechanism-envelope-v6.js` | Project utility: mechanism envelope v6. | `tests/mechanism-envelope-v6.test.js`<br>`tests/robot-studio-v8.test.js` | — |
 | `tools/` | `mechanism-prototyping-v3.js` | Project utility: mechanism prototyping v3. | `tests/mechanism-prototyping-v3.test.js` | — |
@@ -156,11 +156,10 @@
 
 ## Explicit coverage gaps
 
-25 of 149 tools currently have an explicit GAP. These are follow-up test gaps, not claims that the tools failed.
+23 of 149 tools currently have an explicit GAP. These are follow-up test gaps, not claims that the tools failed.
 
 - `tools/build-cad-v11.py`
 - `tools/build-team-brief-page-v7.py`
-- `tools/build_field_tables.py`
 - `tools/check-live-v11.js`
 - `tools/check-live-v13.js`
 - `tools/check-robot-studio-v8-browser.js`
@@ -172,7 +171,6 @@
 - `tools/export-assembly-v11.js`
 - `tools/export-assembly-v13.js`
 - `tools/extract-sources.js`
-- `tools/inspect-tire-stl.js`
 - `tools/multimodel-vision.py`
 - `tools/plan-mission-v9-avoidance.js`
 - `tools/refine-stopping-dynamics-v6.js`
