@@ -4,11 +4,11 @@
   "provider_family": "web-search",
   "cost_rank": 2,
   "model": null,
-  "started_at": "2026-11-07T17:21:08.927Z",
-  "finished_at": "2026-11-07T17:21:08.934Z",
+  "started_at": "2026-11-07T23:52:09.158Z",
+  "finished_at": "2026-11-07T23:52:10.160Z",
   "status": "success",
   "prompt_sha256": "81267d58d64f501ada7a474b077e5bf0e8cd7ae79c40091b30a9b653d75a1949",
-  "response_sha256": "e55970a5b4ded526ba7e57370071c6b34a517e6a89c1b98f61cfeaa9dd1046c3",
+  "response_sha256": "8abbca0ae3695c1e06c68b07c257e5cfd86ed3dae2f5b05a0499bacde5adf4ee",
   "input_files": [
     {
       "path": "RULES-AND-SOURCES.md",
@@ -27,8 +27,8 @@
     "reviewer": null,
     "reviewed_at": null,
     "notes": null,
-    "run_sha256": "ed1798177b193ab5284d90711e6a670686aa2c16f697c20cd1349337f200f401",
-    "output_sha256": "e55970a5b4ded526ba7e57370071c6b34a517e6a89c1b98f61cfeaa9dd1046c3"
+    "run_sha256": "c0472ddf6b3231419a1288f4bdeb7c73a7d2bb21e6ca323a2c837a63a6bf3653",
+    "output_sha256": "8abbca0ae3695c1e06c68b07c257e5cfd86ed3dae2f5b05a0499bacde5adf4ee"
   },
   "notes": "Agent-run; not owner-reviewed."
 }

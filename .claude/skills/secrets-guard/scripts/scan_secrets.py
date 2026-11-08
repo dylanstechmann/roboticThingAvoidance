@@ -3,6 +3,8 @@
 
 Usage: scan_secrets.py --staged | --worktree | PATH [PATH ...]
 Prints truncated values only (first 6 chars).
+base64 data URIs (embedded images) are skipped before pattern matching so
+random substrings inside image blobs cannot raise false provider-key hits.
 """
 import argparse
 import math
@@ -33,6 +35,11 @@ ASSIGN = re.compile(r"^\s*(?:export\s+)?([A-Z][A-Z0-9_]{2,30})\s*[=:]\s*[\"']?([
 
 DUMMY = re.compile(r"(?i)abcd|12345678|xxxx|fake|dummy|example|placeholder|your[_-]?key")
 
+# Embedded images (data URIs) are not credentials; strip their base64 blobs
+# before pattern matching so random BSA...-shaped fragments inside image data
+# do not raise false hits. Keys outside the blob on the same line still match.
+BASE64_DATA_URI = re.compile(r"data:[a-z0-9.+/-]+;base64,[a-z0-9+/=\s]+", re.IGNORECASE)
+
 
 def is_dummy(val):
     return bool(DUMMY.search(val))
@@ -56,6 +63,7 @@ def scan_text(name, text):
     for i, line in enumerate(text.splitlines(), 1):
         if "SECRETS-GUARD-IGNORE" in line:
             continue
+        line = BASE64_DATA_URI.sub("data:[base64 omitted]", line)
         for label, pat in PATTERNS:
             m = pat.search(line)
             if m and not is_dummy(m.group(0)):

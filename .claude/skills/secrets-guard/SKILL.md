@@ -30,6 +30,10 @@ JapanFold (`jf_live_`), NVIDIA (`nvapi-`), plus GitHub tokens (`ghp_`, `github_p
 AWS (`AKIA`), private key blocks and generic `KEY=value` assignments whose value
 has high token entropy.
 
+base64 data URIs (embedded images such as showcase screenshots) are stripped
+before pattern matching, so random `BSA...`-shaped fragments inside image blobs
+do not raise false hits; real keys outside the blob on the same line still match.
+
 ## Rules
 
 1. **A hit is blocking.** Rotate the key if it ever reached a commit or a chat,

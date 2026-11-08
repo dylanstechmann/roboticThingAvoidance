@@ -1,18 +1,34 @@
 {
   "task_id": "organizer-qa-draft",
   "provider_id": "openrouter-general",
+  "provider_family": "chat",
+  "cost_rank": 3,
   "model": "openrouter/auto",
-  "started_at": "2026-11-07T15:56:59.040Z",
-  "finished_at": "2026-11-07T15:57:17.950Z",
+  "started_at": "2026-11-07T23:52:19.165Z",
+  "finished_at": "2026-11-07T23:53:04.667Z",
   "status": "success",
   "prompt_sha256": "6960c5bff1305344d11ffcf8cb4a2a3094c16e045b40a7addf8b584fe91ffde7",
-  "response_sha256": "c1ab69e439f71f507b7f34414e334d03c8556aab37cd3b96f5313122444e465d",
+  "response_sha256": "d50e9e0646e7f8de517e950f92b70391aeea6a284c255672bb7b5d4bd9c5ab06",
   "input_files": [
     {
       "path": "derived/qa-pack-v10/QUESTIONS.md",
-      "sha256": "e29cdd5495ad1d80c0baf3f60000e3fb4920fbcba8b2d003d1c91b1e2380513c"
+      "sha256": "e29cdd5495ad1d80c0baf3f60000e3fb4920fbcba8b2d003d1c91b1e2380513c",
+      "chars": 14014,
+      "tokens_estimated": 3504,
+      "compacted": false
     }
   ],
+  "compaction": {
+    "applied": false
+  },
   "output_path": "derived/ai-orchestration/evidence/organizer-qa-draft.md",
+  "review": {
+    "status": "pending",
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null,
+    "run_sha256": "5c168177bf3c3614384f4e4a2c4525079496296a3b90f1d074a9c65a1bac202f",
+    "output_sha256": "d50e9e0646e7f8de517e950f92b70391aeea6a284c255672bb7b5d4bd9c5ab06"
+  },
   "notes": "Agent-run; not owner-reviewed."
 }

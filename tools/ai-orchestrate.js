@@ -208,6 +208,69 @@ function validateTask(task) {
   }
 }
 
+// Follow-up from the 2026-11-07 study pack: the JSON task-object validator.
+// validateTask checks one task object in isolation; this cross-validates the
+// manifest against the provider registry and the fields validateTask leaves
+// shallow, so a bad tasks.json edit fails before any run or review happens.
+const QUERY_REQUIRED_FAMILIES = ['web-search', 'web-read', 'scholar'];
+
+function isRelativeInsideRepo(relativePath) {
+  return typeof relativePath === 'string'
+    && relativePath.length > 0
+    && !path.isAbsolute(relativePath)
+    && !relativePath.split(/[/\\]/).includes('..');
+}
+
+function validateTaskManifest(tasks, providers) {
+  if (!Array.isArray(tasks)) {
+    throw new Error('task manifest must be a JSON array');
+  }
+  if (!Array.isArray(providers)) {
+    throw new Error('provider registry must be a JSON array');
+  }
+  const providerIds = new Set(providers.map(provider => provider.id));
+  for (const task of tasks) {
+    if (typeof task.title !== 'string' || task.title.trim().length === 0) {
+      throw new Error(`task ${task.id}: title must be a non-empty string`);
+    }
+    if (task.owner_review !== undefined && typeof task.owner_review !== 'boolean') {
+      throw new Error(`task ${task.id}: owner_review must be a boolean`);
+    }
+    if (typeof task.output_name !== 'string'
+      || !/^[A-Za-z0-9][A-Za-z0-9._-]*\.md$/.test(task.output_name)
+      || task.output_name.includes('..')) {
+      throw new Error(`task ${task.id}: output_name must be a safe .md file name without path separators`);
+    }
+    if (task.preferred_providers.length === 0
+      || task.preferred_providers.some(id => typeof id !== 'string')) {
+      throw new Error(`task ${task.id}: preferred_providers must be a non-empty array of provider ids`);
+    }
+    for (const id of task.preferred_providers) {
+      if (!providerIds.has(id)) {
+        throw new Error(`task ${task.id}: unknown preferred provider ${id}`);
+      }
+    }
+    const preferred = task.preferred_providers.map(id => providers.find(provider => provider.id === id));
+    if (!preferred.some(provider => isSelectable(provider, task))) {
+      throw new Error(`task ${task.id}: no preferred provider is a live route for kind ${task.kind}`);
+    }
+    const family = FAMILY_FOR_KIND[task.kind];
+    if (family && QUERY_REQUIRED_FAMILIES.includes(family)
+      && (typeof task.query !== 'string' || task.query.trim().length === 0)) {
+      throw new Error(`task ${task.id}: kind ${task.kind} requires a non-empty query`);
+    }
+    if (!isRelativeInsideRepo(task.prompt_file)) {
+      throw new Error(`task ${task.id}: prompt_file must be a relative path inside the repository`);
+    }
+    for (const input of task.input_files) {
+      if (!isRelativeInsideRepo(input)) {
+        throw new Error(`task ${task.id}: input file ${input} must be a relative path inside the repository`);
+      }
+    }
+  }
+  return tasks;
+}
+
 function loadProviderRegistry(file = DEFAULT_REGISTRY) {
   const data = readJsonFile(file);
   if (!Array.isArray(data)) {
@@ -947,6 +1010,7 @@ async function main() {
   loadSecretsFile(args.secretsFile);
   const providers = loadProviderRegistry(args.registry);
   const tasks = loadTaskManifest(args.manifest);
+  validateTaskManifest(tasks, providers);
   const task = tasks.find(t => t.id === args.task);
   if (!task) {
     throw new Error(`unknown task ${args.task}`);
@@ -980,6 +1044,7 @@ module.exports = {
   readJsonFile,
   loadProviderRegistry,
   loadTaskManifest,
+  validateTaskManifest,
   loadSecretsFile,
   estimateTokens,
   needsCompaction,

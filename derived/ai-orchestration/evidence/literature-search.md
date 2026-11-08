@@ -1,10 +1,16 @@
-# Dry-run advisory output
-
-task_id: literature-search
-provider_id: openalex-search
-model_hint: n/a
-prompt_sha256: f4d58bef8d9c135b40ea82e974dfae7ed6268904db0ba1cb322cce2fdec1c2b0
-
-This is a deterministic dry-run. No network request was made and no provider credentials were used.
-
-Next owner action: review this plan, then enable a live provider with the corresponding environment variable.
+- Path Planning for Autonomous Mobile Robots: A Review — https://openalex.org/W3217170181
+  2021 https://doi.org/10.3390/s21237898
+- Emergency Obstacle Avoidance Maneuvers in Differential-Drive Mobile Robots — https://openalex.org/W7220670370
+  2026 https://doi.org/10.48550/arxiv.2610.05607
+- Motion planning and obstacle avoidance for mobile robots in highly cluttered dynamic environments — https://openalex.org/W1861193092
+  2004 https://doi.org/10.5075/epfl-thesis-3146
+- Reinforcement learning-based dynamic obstacle avoidance and integration of path planning — https://openalex.org/W3201913099
+  2021 https://doi.org/10.1007/s11370-021-00387-2
+- Real-time Path Planning and Obstacle Avoidance for Mobile Robots with Actuator Faults — https://openalex.org/W2908501411
+  2018
+- Path Planning Technique for Mobile Robots: A Review — https://openalex.org/W4387880053
+  2023 https://doi.org/10.3390/machines11100980
+- Application of Odometry and Dijkstra Algorithm as Navigation and Shortest Path Determination System of Warehouse Mobile Robot — https://openalex.org/W4392256428
+  2023 https://doi.org/10.18196/jrc.v4i3.18489
+- Dynamic Obstacle Avoidance Algorithm for Autonomous Mobile Robots — https://openalex.org/W4386393670
+  2023 https://doi.org/10.33103/uot.ijccce.23.2.6

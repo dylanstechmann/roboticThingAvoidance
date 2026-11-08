@@ -1,10 +1,16 @@
-# Dry-run advisory output
-
-task_id: rules-update-scan
-provider_id: exa-search
-model_hint: n/a
-prompt_sha256: 81267d58d64f501ada7a474b077e5bf0e8cd7ae79c40091b30a9b653d75a1949
-
-This is a deterministic dry-run. No network request was made and no provider credentials were used.
-
-Next owner action: review this plan, then enable a live provider with the corresponding environment variable.
+- IEEE SoutheastCon 2027 “Launching A Space Coast Odyssey” - IEEE Western North Carolina Section — https://r3.ieee.org/wnc/technology-engineering-innovation-news/ieee-southeastcon-2027-launching-a-space-coast-odyssey/
+  IEEE SoutheastCon 2027 “Launching A Space Coast Odyssey” - IEEE Western North Carolina Section # April 15-18, 2027 # Hilton Daytona Beach Oceanfront Resort SoutheastCon is IEEE Region 3’s annual conference, bringing together students, researchers, faculty, industry professionals, and volunteers for technical exchange, professional engagement, and student activities. We look forward to welcoming at
+- SoutheastCon · Robotics Design Team · VT CRO — https://www.vtcro.org/teams/southeastcon
+  SoutheastCon · Robotics Design Team · VT CRO SEC # SoutheastCon Building a fully autonomous vehicle for IEEE’s 2027 “Stock Car Race” challenge. Type Design Team Code SEC Competition IEEE SoutheastCon Hardware Competition ## About SoutheastCon Focused on end-to-end robotics development, our SoutheastCon team is currently engineering a fully autonomous vehicle for the IEEE SoutheastCon 2027 Hardware
+- Student Competitions – IEEE SoutheastCon 2027 — https://ieeesoutheastcon.org/student-competitions/
+  Student Competitions – IEEE SoutheastCon 2027 # Student Competitions Information around other student competitions at IEEE SoutheastCon 2027 will be posted by January 1st 2027. More information can be found on the official IEEE SoutheastCon Discord. Join today at https://discord.gg/cuqdFvQFe8. Registration There are 2 registrations that students need to be aware of! Conference Registration and Com
+- IEEE SoutheastCon 2027 — https://ieeesoutheastcon.org/wp-content/uploads/sites/755/SEC-2027-Arena-Build-Guide.pdf
+  1 A public charity, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of humanity. ## IEEE SoutheastCon 2027 Hardware Competition Arena Build Guide Presented by Valencia College IEEE Student Branch 2 A public charity, IEEE is the world's largest technical professional organization dedicated to advancing technology for the benefit of h
+- SoutheastCon – IEEE at USF — https://www.ieeeusf.com/southeastcon/
+  SoutheastCon – IEEE at USF # SoutheastCon Mon 4:00 – 6:00 PM Thu 2:00 – 4:00 PM SoutheastCon hosts multiple student competitions each year. Use the explorer below to browse each track. ## IEEE at USF Program Structure Update This is a new structure where we are opening up SoutheastCon participation to the full IEEE at USF club as a technical program. Previously, we sponsored the Hardware Design Te
+- IEEE SoutheastCon hardware team | IEEE RAS at USF — https://www.ieeerasusf.org/projects/southeastcon
+  IEEE SoutheastCon hardware team | IEEE RAS at USF # IEEE SoutheastCon hardware team Team competition robotics for IEEE's flagship regional conference. The 2027 theme: A Space Coast Odyssey. SoutheastCon is IEEE Region 3's annual conference, and its student hardware competition pits chapters across the Southeast against each other in autonomous robotics. Members compete in robotics hardware, softwa
+- IEEE 2026 SoutheastCon Hardware Competition Final Ruleset — https://ieeesoutheastcon.org/wp-content/uploads/sites/688/Hardware_Competition_Ruleset_2_20_26.pdf
+  IEEE 2026 SoutheastCon Hardware Competition Ruleset Published February 20, 2026 #### Table of Contents 1 Introduction ... 6 1.1 Objective ... 6 Locate and rescue the Astro-Ducks ... 6 Establish communication with Earth ... 6 Restore power to the antennas ... 6 Communicate the antennas’ LED color to Earth ... 7 Plant your school’s flag ... 7 1.2 General Vehicle Requirements ... 7 1.3 Additional Veh
+- SoutheastCon - VT CRO Wiki — https://wiki.vtcro.org/index.php/SoutheastCon
+  SoutheastCon - VT CRO Wiki ## Competition At the yearly IEEE SoutheastCon Convention, there are many student competitions available to participate in. VT CRO specifically attends the Hardware Competition, which is the competition that the organization was born from. In this competition, the players are challenged to design a completely autonomous robot that is 1 foot x 1 foot x 1 foot in size, wit
