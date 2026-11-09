@@ -59,6 +59,7 @@
 | `tools/` | `evaluate-mission-v10.py` | Evaluate the v10 mission simulator on the reserved evaluation seeds (100-119). | `tools/verify-mission-v10.js` | — |
 | `tools/` | `evaluate-mission-v9.py` | Write reproducible synthetic baseline evidence; never train or claim a policy. | GAP | No direct test or same-study verifier found in the audited test suites. |
 | `tools/` | `evaluate-recovery-v1.py` | Evaluate blocked-route recovery across scenarios, behaviors and pose modes. | `tools/verify-recovery-v1.js`<br>`software/stockcar/tests/test_recovery.py` | — |
+| `tools/` | `evaluate-recovery-sensed-v1.py` | Evaluate sensed-blocker recovery: 8 scenarios x 4 behaviors x 2 pose modes x 20 seeds deprived of vehicle truth (range-ring VehicleMap planning). Writes the sealed derived/recovery-sensed-v1 package. | `software/stockcar/tests/test_recovery_sensed.py` | — |
 | `tools/` | `evaluate-rl-v1.py` | Evaluate the RL-vs-classical harness: the classical baseline against a random policy. | `tools/verify-rl-v1.js` | — |
 | `tools/` | `evaluate-rl-v2.py` | Compare the trained policy against the classical baseline and the random policy on the evaluation | `tools/verify-rl-v2.js` | — |
 | `tools/` | `evaluate-sensing-v11.py` | Characterize the sensed game-element models (AprilTag pit box, start flag, checkered lap line). | `tools/verify-sensing-v11.js` | — |
@@ -141,6 +142,7 @@
 | `tools/` | `verify-practice-field-v10.js` | Rebuilds derived/practice-field-v10 in memory, compares every file, and checks the packet's internal consistency. An agent-prepared build packet; nothing has been built or measured. | `tools/verify-practice-field-v10.js` | — |
 | `tools/` | `verify-qa-pack-v10.js` | Verifies derived/qa-pack-v10: every manual quote appears at its cited paragraph line, every earlier question maps to a new one, paste text fits Discord, outputs match a fresh build, and the live answer | `tools/verify-qa-pack-v10.js` | — |
 | `tools/` | `verify-recovery-v1.js` | Verifies recovery-v1 structure and hashes; results are checked as measured, not for a desired direction. Regenerate: uv run --no-project --python 3.12 python -B -I tools/evaluate-recovery-v1.py | `tools/verify-recovery-v1.js` | — |
+| `tools/` | `verify-recovery-sensed-v1.js` | Verifies derived/recovery-sensed-v1: input/output hashes, 64 cells x 20 runs, 1280 sensed rows, 40 baselines and 64 oracle-vs-sensed comparisons, checked as measured. | `tools/verify-recovery-sensed-v1.js`<br>`tests/recovery-sensed-v1.test.js` | — |
 | `tools/` | `verify-rl-v1.js` | Verifies derived/rl-v1: input/output hashes and the scaffold's structure. It checks reproducibility and that every measured field is present and in range; it does not assert a | `tools/verify-rl-v1.js` | — |
 | `tools/` | `verify-rl-v2.js` | Verifies derived/rl-v2: input/output hashes and the trained-policy study's structure. It checks reproducibility and that every field is present and in range; it does not assert a hoped-for | `tools/verify-rl-v2.js` | — |
 | `tools/` | `verify-robot-lab-v3.js` | Project utility: verify robot lab v3. | `tools/verify-robot-lab-v3.js` | — |
@@ -156,7 +158,7 @@
 
 ## Explicit coverage gaps
 
-23 of 149 tools currently have an explicit GAP. These are follow-up test gaps, not claims that the tools failed.
+23 of 151 tools currently have an explicit GAP. These are follow-up test gaps, not claims that the tools failed.
 
 - `tools/build-cad-v11.py`
 - `tools/build-team-brief-page-v7.py`
